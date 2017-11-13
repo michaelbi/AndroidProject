@@ -14,10 +14,9 @@ import il.ac.jct.michaelzalman.androidproject.model.entities.Client;
  * IBackent to handle data sources
  */
 
-public interface IBackend {
-
+public interface IDBManager {
     boolean isClientExist(ContentValues client);
-    void addClient(ContentValues client);
+    void addClient(ContentValues client) throws Exception;
     void addCarModel (ContentValues carModel);
     void addCar(ContentValues car);
     List<Client> getAllClients();

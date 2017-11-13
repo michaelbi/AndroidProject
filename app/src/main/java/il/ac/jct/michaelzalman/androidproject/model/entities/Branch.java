@@ -1,10 +1,5 @@
 package il.ac.jct.michaelzalman.androidproject.model.entities;
 
-import android.content.ContentValues;
-
-import il.ac.jct.michaelzalman.androidproject.model.backend.TakeAndGoConsts;
-
-
 
 /**
  * Created by מיכאל on 08/11/2017.
@@ -13,9 +8,9 @@ import il.ac.jct.michaelzalman.androidproject.model.backend.TakeAndGoConsts;
 public class Branch
 {
 
-    Address address;
-    int parkingUnits;
-    int branchId;
+    private Address address;
+    private int parkingUnits;
+    private int Id;
 
     public Address getAddress() {
         return address;
@@ -25,8 +20,8 @@ public class Branch
         return parkingUnits;
     }
 
-    public int getBranchId() {
-        return branchId;
+    public int getId() {
+        return Id;
     }
 
     public void setAddress(Address address) {
@@ -37,8 +32,8 @@ public class Branch
         this.parkingUnits = parkingUnits;
     }
 
-    public void setBranchId(int branchId) {
-        this.branchId = branchId;
+    public void setId(int id) {
+        this.Id = id;
     }
 
 }

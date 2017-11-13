@@ -6,6 +6,7 @@ import java.util.Date;
 
 import il.ac.jct.michaelzalman.androidproject.model.entities.*;
 
+import il.ac.jct.michaelzalman.androidproject.model.entities.*;
 
 /**
  * Created by מיכאל on 13/11/2017.
@@ -13,9 +14,10 @@ import il.ac.jct.michaelzalman.androidproject.model.entities.*;
 
 public class TakeAndGoConsts {
 
+    //region Description Branch and Address const and convertors
     public static class BranchConst{
         public static final String PARKING="parkingUnits";
-        public static final String ID="_id";
+        public static final String ID ="_id";
     }
 
     public static class AddressConst{
@@ -25,18 +27,6 @@ public class TakeAndGoConsts {
 
     }
 
-    public static ContentValues toContentValues(Branch branch){
-        ContentValues content= new ContentValues();
-        Address address;
-
-        content.put(TakeAndGoConsts.BranchConst.ID,branch.getBranchId());
-        content.put(TakeAndGoConsts.BranchConst.PARKING,branch.getParkingUnits());
-        content.put(TakeAndGoConsts.AddressConst.CITY,branch.getAddress().getCity());
-        content.put(TakeAndGoConsts.AddressConst.STREET,branch.getAddress().getStreet());
-        content.put(TakeAndGoConsts.AddressConst.NUMBER,branch.getAddress().getNumber());
-
-        return content;
-    }
 
     public static Branch ContentValuesToBranch(ContentValues content){
 
@@ -48,12 +38,100 @@ public class TakeAndGoConsts {
         a.setNumber((int) content.get(TakeAndGoConsts.AddressConst.NUMBER));
 
         branch.setAddress(a);
-        branch.setBranchId((int)content.get(TakeAndGoConsts.BranchConst.ID));
+        branch.setId((int)content.get(TakeAndGoConsts.BranchConst.ID));
         branch.setParkingUnits((int) content.get(TakeAndGoConsts.BranchConst.PARKING));
 
         return branch;
 
     }
+    public static ContentValues branchToContentValues(Branch branch){
+        ContentValues content= new ContentValues();
+        content.put(TakeAndGoConsts.BranchConst.ID,branch.getId());
+        content.put(TakeAndGoConsts.BranchConst.PARKING,branch.getParkingUnits());
+        content.put(TakeAndGoConsts.AddressConst.CITY,branch.getAddress().getCity());
+        content.put(TakeAndGoConsts.AddressConst.STREET,branch.getAddress().getStreet());
+        content.put(TakeAndGoConsts.AddressConst.NUMBER,branch.getAddress().getNumber());
+
+        return content;
+    }
+    //endregion
+
+    //region Description Client const and convertors
+    public static class ClientConst{
+        public static final String FIRST_NAME = "first_name";
+        public static final String LAST_NAME = "last_name";
+        public static final String ID = "_id";
+        public static final String PHONE_NUMBER = "phone_number";
+        public static final String EMAIL = "email";
+        public static final String CREDIT_CARD = "credit_card";
+    }
+
+    public static ContentValues ClientToContentValues(Client client){
+        ContentValues content= new ContentValues();
+        content.put(ClientConst.FIRST_NAME, client.getFirstName());
+        content.put(ClientConst.LAST_NAME, client.getLastName());
+        content.put(ClientConst.ID, client.getId());
+        content.put(ClientConst.PHONE_NUMBER, client.getPhoneNumber());
+        content.put(ClientConst.EMAIL, client.getEmail());
+        content.put(ClientConst.CREDIT_CARD, client.getCreditCard());
+        return content;
+    }
+
+    public static Client ContentValuesToClient(ContentValues content){
+
+        Client client = new Client();
+
+        client.setFirstName((String)content.get(ClientConst.FIRST_NAME));
+        client.setLastName((String)content.get(ClientConst.LAST_NAME));
+        client.setId((String)content.get(ClientConst.ID));
+        client.setEmail((String)content.get(ClientConst.EMAIL));
+        client.setPhoneNumber((String)content.get(ClientConst.PHONE_NUMBER));
+        client.setCreditCard((String)content.get(ClientConst.CREDIT_CARD));
+
+        return client;
+
+    }
+    //endregion
+
+    //region Description CarModel const and convertors
+    public static class CarModelConst{
+        public static final String ID = "_id";
+        public static final String BRAND = "brand";
+        public static final String MODEL_NAME = "model_name";
+        public static final String ENGINE_CAPACITY= "engine_capacity";
+        public static final String GEAR_BOX= "gear_box";
+        public static final String SEATS_NUMBER = "seats_number";
+    }
+
+    public static ContentValues CarModelToContentValues(CarModel carModel){
+        ContentValues content= new ContentValues();
+        content.put(CarModelConst.BRAND, carModel.getBrand());
+        content.put(CarModelConst.ENGINE_CAPACITY, carModel.getEngineCapacity());
+        content.put(CarModelConst.GEAR_BOX, String.valueOf(carModel.getGearbox()));
+        content.put(CarModelConst.ID, carModel.getId());
+        content.put(CarModelConst.MODEL_NAME, carModel.getModelName());
+        content.put(CarModelConst.SEATS_NUMBER, carModel.getSitsNumber());
+        return content;
+    }
+
+
+    public static CarModel ContentValuesToCarModel(ContentValues content){
+
+        CarModel carModel = new CarModel();
+
+        carModel.setId((String)content.get(CarModelConst.ID));
+        carModel.setBrand((String)content.get(CarModelConst.BRAND));
+        carModel.setEngineCapacity((int)content.get(CarModelConst.ENGINE_CAPACITY));
+        carModel.setGearbox((CarModel.Gearbox) content.get(CarModelConst.GEAR_BOX));
+        carModel.setModelName((String)content.get(CarModelConst.MODEL_NAME));
+        carModel.setSitsNumber((int)content.get(CarModelConst.SEATS_NUMBER));
+        return carModel;
+
+    }
+    //endregion
+
+
+
 
     //region Car ContentValues
     public static class CarConst{

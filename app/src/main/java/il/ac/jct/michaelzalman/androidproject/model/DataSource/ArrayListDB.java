@@ -5,7 +5,8 @@ import android.content.ContentValues;
 import java.util.ArrayList;
 import java.util.List;
 
-import il.ac.jct.michaelzalman.androidproject.model.backend.IBackend;
+import il.ac.jct.michaelzalman.androidproject.model.backend.IDBManager;
+import il.ac.jct.michaelzalman.androidproject.model.backend.TakeAndGoConsts;
 import il.ac.jct.michaelzalman.androidproject.model.entities.Branch;
 import il.ac.jct.michaelzalman.androidproject.model.entities.Car;
 import il.ac.jct.michaelzalman.androidproject.model.entities.CarModel;
@@ -15,12 +16,13 @@ import il.ac.jct.michaelzalman.androidproject.model.entities.Client;
  */
 
 
-public class ArrayListDB  implements IBackend {
-    private static ArrayList<Client> clients;
-    private static ArrayList<Car> cars;
-    private static ArrayList<CarModel> carModels;
-    private static ArrayList<Branch> branches;
+public class ArrayListDB  implements IDBManager {
+    private static ArrayList<Client> clients = new ArrayList<>();
+    private static ArrayList<Car> cars = new ArrayList<>();
+    private static ArrayList<CarModel> carModels = new ArrayList<>();
+    private static ArrayList<Branch> branches = new ArrayList<>();
 
+    //region Description getters
     public static ArrayList<Client> getClients() {
         return clients;
     }
@@ -36,26 +38,26 @@ public class ArrayListDB  implements IBackend {
     public static ArrayList<Branch> getBranches() {
         return branches;
     }
+    //endregion
 
-    public void initializeLists() {
-        clients = new ArrayList<>();
-        cars = new ArrayList<>();
-        carModels = new ArrayList<>();
-        branches = new ArrayList<>();
-    }
 
+    //region Description IDBManager override methods
     @Override
     public boolean isClientExist(ContentValues client) {
+        if(clients.isEmpty())
+            return false;
         for (Client c:clients) {
-                if(c.getId() == (String) client.get("id"))
+                if(c.getId() == (String) client.get(TakeAndGoConsts.ClientConst.ID))
                     return true;
         }
         return false;
     }
 
     @Override
-    public void addClient(ContentValues client) {
-
+    public void addClient(ContentValues client) throws Exception {
+        if(isClientExist(client))
+            throw new Exception("trying to add client that allredy exist in DB.");
+        clients.add(TakeAndGoConsts.ContentValuesToClient(client));
     }
 
     @Override
@@ -87,4 +89,25 @@ public class ArrayListDB  implements IBackend {
     public List<Car> getAllCars() {
         return cars;
     }
+    //endregion
+
+    private boolean isCarModelExist(ContentValues carModel) {
+        if(carModels.isEmpty())
+            return false;
+        for (CarModel c :carModels) {
+            if(c.getId() == carModel.get(TakeAndGoConsts.CarModelConst.ID))
+                return true;
+        }
+        return false;
+    }
+    private boolean isBranchExist(ContentValues branch) {
+        if(branches.isEmpty())
+            return false;
+        for (Branch b :branches) {
+            if(b.getId() == branch.get(TakeAndGoConsts.CarModelConst.ID))
+                return true;
+        }
+        return false;
+    }
+
 }

@@ -6,17 +6,17 @@ package il.ac.jct.michaelzalman.androidproject.model.entities;
 
 public class CarModel
 {
-    enum Gearbox{AUTOMATIC,MANUAL}
+    public enum Gearbox{AUTOMATIC,MANUAL}
 
-    String modelId;
-    String brand;
-    String modelName;
-    int engineCapacity;
-    Gearbox gearbox;
-    int sitsNumber;
+    private String Id;
+    private String brand;
+    private String modelName;
+    private int engineCapacity;
+    private Gearbox gearbox;
+    private int sitsNumber;
 
-    public String getModelId() {
-        return modelId;
+    public String getId() {
+        return Id;
     }
 
     public String getBrand() {
@@ -39,8 +39,8 @@ public class CarModel
         return sitsNumber;
     }
 
-    public void setModelId(String modelId) {
-        this.modelId = modelId;
+    public void setId(String id) {
+        this.Id = id;
     }
 
     public void setBrand(String brand) {
