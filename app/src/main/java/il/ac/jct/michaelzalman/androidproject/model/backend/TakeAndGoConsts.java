@@ -117,7 +117,6 @@ public class TakeAndGoConsts {
         content.put(OrderConst.FUEL,order.isFuel());
         content.put(OrderConst.FILED_FUEL,order.getFiledFuel());
         content.put(OrderConst.TOTAL_CHARGE_SUM,order.getTotalChargeSum());
-        content.put(OrderConst.CAR_ID,order.getCarId());
         content.put(OrderConst.ID,order.getId());
 
         return content;
@@ -136,7 +135,6 @@ public class TakeAndGoConsts {
         order.setFuel((Boolean) content.get(OrderConst.FUEL));
         order.setFiledFuel((Float) content.get(OrderConst.FILED_FUEL));
         order.setTotalChargeSum((Float) content.get(OrderConst.TOTAL_CHARGE_SUM));
-        order.setClientId((String) content.get(OrderConst.CLIENT_ID));
 
         return order;
     }
