@@ -1,41 +1,17 @@
 package il.ac.jct.michaelzalman.androidproject.model.entities;
 
+import android.content.ContentValues;
+
+import il.ac.jct.michaelzalman.androidproject.model.backend.TakeAndGoConsts;
+
+
+
 /**
  * Created by מיכאל on 08/11/2017.
  */
 
 public class Branch
 {
-    public class Address
-    {
-        String city;
-        String street;
-        int number;
-
-        public String getCity() {
-            return city;
-        }
-
-        public String getStreet() {
-            return street;
-        }
-
-        public int getNumber() {
-            return number;
-        }
-
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-        public void setStreet(String street) {
-            this.street = street;
-        }
-
-        public void setNumber(int number) {
-            this.number = number;
-        }
-    }
 
     Address address;
     int parkingUnits;
@@ -64,4 +40,36 @@ public class Branch
     public void setBranchId(int branchId) {
         this.branchId = branchId;
     }
+
+    public static ContentValues toContentValues(Branch branch){
+        ContentValues content= new ContentValues();
+        Address address;
+
+        content.put(TakeAndGoConsts.BranchConst.ID,branch.branchId);
+        content.put(TakeAndGoConsts.BranchConst.PARKING,branch.parkingUnits);
+        content.put(TakeAndGoConsts.AddressConst.CITY,branch.address.city);
+        content.put(TakeAndGoConsts.AddressConst.STREET,branch.address.street);
+        content.put(TakeAndGoConsts.AddressConst.NUMBER,branch.address.number);
+
+        return content;
+    }
+
+    public static Branch ContentValuesToBranch(ContentValues content){
+
+        Branch branch=new Branch();
+
+        Address a=new Address();
+        a.setCity((String) content.get(TakeAndGoConsts.AddressConst.CITY));
+        a.setStreet((String) content.get(TakeAndGoConsts.AddressConst.STREET));
+        a.setNumber((int) content.get(TakeAndGoConsts.AddressConst.NUMBER));
+
+        branch.setAddress(a);
+        branch.setBranchId((int)content.get(TakeAndGoConsts.BranchConst.ID));
+        branch.setParkingUnits((int) content.get(TakeAndGoConsts.BranchConst.PARKING));
+
+
+        return branch;
+
+    }
+
 }
