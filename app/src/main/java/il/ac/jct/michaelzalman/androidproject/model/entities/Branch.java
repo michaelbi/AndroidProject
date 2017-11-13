@@ -41,35 +41,4 @@ public class Branch
         this.branchId = branchId;
     }
 
-    public static ContentValues toContentValues(Branch branch){
-        ContentValues content= new ContentValues();
-        Address address;
-
-        content.put(TakeAndGoConsts.BranchConst.ID,branch.branchId);
-        content.put(TakeAndGoConsts.BranchConst.PARKING,branch.parkingUnits);
-        content.put(TakeAndGoConsts.AddressConst.CITY,branch.address.city);
-        content.put(TakeAndGoConsts.AddressConst.STREET,branch.address.street);
-        content.put(TakeAndGoConsts.AddressConst.NUMBER,branch.address.number);
-
-        return content;
-    }
-
-    public static Branch ContentValuesToBranch(ContentValues content){
-
-        Branch branch=new Branch();
-
-        Address a=new Address();
-        a.setCity((String) content.get(TakeAndGoConsts.AddressConst.CITY));
-        a.setStreet((String) content.get(TakeAndGoConsts.AddressConst.STREET));
-        a.setNumber((int) content.get(TakeAndGoConsts.AddressConst.NUMBER));
-
-        branch.setAddress(a);
-        branch.setBranchId((int)content.get(TakeAndGoConsts.BranchConst.ID));
-        branch.setParkingUnits((int) content.get(TakeAndGoConsts.BranchConst.PARKING));
-
-
-        return branch;
-
-    }
-
 }
