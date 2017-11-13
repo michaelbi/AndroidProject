@@ -15,6 +15,7 @@ import il.ac.jct.michaelzalman.androidproject.model.entities.Client;
  */
 
 public interface IBackend {
+
     boolean isClientExist(ContentValues client);
     void addClient(ContentValues client);
     void addCarModel (ContentValues carModel);

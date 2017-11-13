@@ -47,7 +47,7 @@ public class ArrayListDB  implements IBackend {
     @Override
     public boolean isClientExist(ContentValues client) {
         for (Client c:clients) {
-                if(c.getId() == client.get("id"))
+                if(c.getId() == (String) client.get("id"))
                     return true;
         }
         return false;
@@ -70,21 +70,21 @@ public class ArrayListDB  implements IBackend {
 
     @Override
     public List<Client> getAllClients() {
-        return null;
+        return clients;
     }
 
     @Override
     public List<CarModel> getAllCarModels() {
-        return null;
+        return carModels;
     }
 
     @Override
     public List<Branch> getAllBranchs() {
-        return null;
+        return branches;
     }
 
     @Override
     public List<Car> getAllCars() {
-        return null;
+        return cars;
     }
 }
