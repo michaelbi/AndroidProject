@@ -1,20 +1,20 @@
 package il.ac.jct.michaelzalman.androidproject.model.entities;
 
+import android.content.ContentValues;
 import android.provider.ContactsContract;
 
 /**
- * Created by מיכאל on 08/11/2017.
+ * Client class
  */
 
 public class Client
 {
-    String firstName;
-    String lastName;
-    String id;
-    String phoneNumber;
-    String email;
-    String creditCard;
-
+    private String firstName;
+    private String lastName;
+    private String id;
+    private String phoneNumber;
+    private String email;
+    private String creditCard;
 
 
     public String getFirstName() {
@@ -64,4 +64,5 @@ public class Client
     public void setCreditCard(String creditCard) {
         this.creditCard = creditCard;
     }
+    //convertors
 }

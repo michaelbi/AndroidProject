@@ -1,17 +1,17 @@
 package il.ac.jct.michaelzalman.androidproject.model.entities;
 
 /**
- * Created by מיכאל on 08/11/2017.
+ * Car class
  */
 
 public class Car
 {
-    CarModel carModel;
-    int carBranchId;
-    int kilometers;
-    String id;
+    private String carModel;
+    private int carBranchId;
+    private int kilometers;
+    private String id;
 
-    public CarModel getCarModel() {
+    public String getCarModel() {
         return carModel;
     }
 
@@ -27,7 +27,7 @@ public class Car
         return id;
     }
 
-    public void setCarModel(CarModel carModel) {
+    public void setCarModel(String carModel) {
         this.carModel = carModel;
     }
 
@@ -36,7 +36,7 @@ public class Car
     }
 
     public void setKilometers(int kilometers) {
-        kilometers = kilometers;
+        this.kilometers = kilometers;
     }
 
     public void setId(String id) {
