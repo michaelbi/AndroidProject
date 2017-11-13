@@ -56,18 +56,22 @@ public class ArrayListDB  implements IDBManager {
     @Override
     public void addClient(ContentValues client) throws Exception {
         if(isClientExist(client))
-            throw new Exception("trying to add client that allredy exist in DB.");
+            throw new Exception("trying to add client that allready exist in DB.");
         clients.add(TakeAndGoConsts.ContentValuesToClient(client));
     }
 
     @Override
-    public void addCarModel(ContentValues carModel) {
-
+    public void addCarModel(ContentValues carModel) throws Exception {
+        if(isCarModelExist(carModel))
+            throw new Exception("trying to add car model that allready exist in DB.");
+        carModels.add(TakeAndGoConsts.ContentValuesToCarModel(carModel));
     }
 
     @Override
-    public void addCar(ContentValues car) {
-
+    public void addCar(ContentValues car) throws Exception {
+        if(isCarExist(car))
+            throw new Exception("trying to add car that allready exist in DB.");
+        cars.add(TakeAndGoConsts.ContentValuesToCar(car));
     }
 
     @Override
@@ -91,6 +95,7 @@ public class ArrayListDB  implements IDBManager {
     }
     //endregion
 
+    //region Description private existance methods
     private boolean isCarModelExist(ContentValues carModel) {
         if(carModels.isEmpty())
             return false;
@@ -100,14 +105,24 @@ public class ArrayListDB  implements IDBManager {
         }
         return false;
     }
-    private boolean isBranchExist(ContentValues branch) {
-        if(branches.isEmpty())
+//    private boolean isBranchExist(ContentValues branch) {
+//        if(branches.isEmpty())
+//            return false;
+//        for (Branch b :branches) {
+//            if(b.getId() == branch.get(TakeAndGoConsts.CarModelConst.ID))
+//                return true;
+//        }
+//        return false;
+//    }
+    private boolean isCarExist(ContentValues car) {
+        if(cars.isEmpty())
             return false;
-        for (Branch b :branches) {
-            if(b.getId() == branch.get(TakeAndGoConsts.CarModelConst.ID))
+        for (Car c :cars) {
+            if(c.getId() == car.get(TakeAndGoConsts.CarConst.ID))
                 return true;
         }
         return false;
     }
+    //endregion
 
 }

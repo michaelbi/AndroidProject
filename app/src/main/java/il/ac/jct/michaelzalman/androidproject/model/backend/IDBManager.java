@@ -17,8 +17,8 @@ import il.ac.jct.michaelzalman.androidproject.model.entities.Client;
 public interface IDBManager {
     boolean isClientExist(ContentValues client);
     void addClient(ContentValues client) throws Exception;
-    void addCarModel (ContentValues carModel);
-    void addCar(ContentValues car);
+    void addCarModel (ContentValues carModel) throws Exception;
+    void addCar(ContentValues car) throws Exception;
     List<Client> getAllClients();
     List<CarModel> getAllCarModels();
     List<Branch> getAllBranchs();
