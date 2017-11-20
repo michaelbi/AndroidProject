@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/AddClientButton"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:text="Add Client" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="הוסף רכב" />
+    <Button
+        android:id="@+id/AddCarModelButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD Car Model" />
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+    <Button
+        android:id="@+id/AddCarButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Car" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+    <Button
+        android:id="@+id/AddBranchButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Branch" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="הוסף משתמש" />
+    <Button
+        android:id="@+id/ShowClientsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Clients" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="חפש משתמש" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="הצג נתונים" />
-    </LinearLayout>
-
+</LinearLayout>
 </ScrollView>

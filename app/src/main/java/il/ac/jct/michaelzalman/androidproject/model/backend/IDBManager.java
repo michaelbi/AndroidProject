@@ -19,9 +19,11 @@ public interface IDBManager {
     void addClient(ContentValues client) throws Exception;
     void addCarModel (ContentValues carModel) throws Exception;
     void addCar(ContentValues car) throws Exception;
+    void addBranch(ContentValues content) throws Exception;
     List<Client> getAllClients();
     List<CarModel> getAllCarModels();
     List<Branch> getAllBranchs();
     List<Car> getAllCars();
+
 
 }

@@ -100,7 +100,7 @@ public class TakeAndGoConsts {
         public static final String MODEL_NAME = "model_name";
         public static final String ENGINE_CAPACITY= "engine_capacity";
         public static final String GEAR_BOX= "gear_box";
-        public static final String SEATS_NUMBER = "seats_number";
+        public static final String SITS_NUMBER = "sits_number";
     }
 
     public static ContentValues CarModelToContentValues(CarModel carModel){
@@ -110,7 +110,7 @@ public class TakeAndGoConsts {
         content.put(CarModelConst.GEAR_BOX, String.valueOf(carModel.getGearbox()));
         content.put(CarModelConst.ID, carModel.getId());
         content.put(CarModelConst.MODEL_NAME, carModel.getModelName());
-        content.put(CarModelConst.SEATS_NUMBER, carModel.getSitsNumber());
+        content.put(CarModelConst.SITS_NUMBER, carModel.getSitsNumber());
         return content;
     }
 
@@ -124,7 +124,7 @@ public class TakeAndGoConsts {
         carModel.setEngineCapacity((int)content.get(CarModelConst.ENGINE_CAPACITY));
         carModel.setGearbox((CarModel.Gearbox) content.get(CarModelConst.GEAR_BOX));
         carModel.setModelName((String)content.get(CarModelConst.MODEL_NAME));
-        carModel.setSitsNumber((int)content.get(CarModelConst.SEATS_NUMBER));
+        carModel.setSitsNumber((int)content.get(CarModelConst.SITS_NUMBER));
         return carModel;
 
     }
