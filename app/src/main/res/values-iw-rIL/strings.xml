@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="main_title">כותרת</string>
+    <string name="client_name">שם:</string>
+    <string name="client_last_name">שם משפחה:</string>
+    <string name="client_id">תעודת זהות:</string>
+    <string name="client_phonenumber">מספר פלאפון:</string>
+    <string name="client_email">אימייל:</string>
+    <string name="client_creditcard">כרטיס אשראי:</string>
 </resources>

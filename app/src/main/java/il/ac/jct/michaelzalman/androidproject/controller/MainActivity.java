@@ -10,15 +10,21 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import il.ac.jct.michaelzalman.androidproject.R;
+import il.ac.jct.michaelzalman.androidproject.model.backend.DBFactory;
+import il.ac.jct.michaelzalman.androidproject.model.backend.IDBManager;
 import il.ac.jct.michaelzalman.androidproject.model.entities.Car;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private IDBManager dbManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViews();
+
+        dbManager= DBFactory.getIdbManager();
+
     }
     private Button AddClientButton;
     private Button AddCarModelButton;
