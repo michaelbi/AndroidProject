@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="textColor">#ffffff</color>
+    <color name="textColor">#ace7e6</color>
     <color name="formBackground">#40a2bf</color>
+    <color name="editTextEntered">#ff008c</color>
 </resources>

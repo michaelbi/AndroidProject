@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="main_title">כותרת</string>
-    <string name="client_name">שם:</string>
-    <string name="client_last_name">שם משפחה:</string>
-    <string name="client_id">תעודת זהות:</string>
-    <string name="client_phonenumber">מספר פלאפון:</string>
-    <string name="client_email">אימייל:</string>
-    <string name="client_creditcard">כרטיס אשראי:</string>
+    <string name="client_name"><u>שם:</u></string>
+    <string name="client_last_name"><u>שם משפחה:</u></string>
+    <string name="client_id"><u>תעודת זהות:</u></string>
+    <string name="client_phonenumber"><u>מספר פלאפון:</u></string>
+    <string name="client_email"><u>אימייל:</u></string>
+    <string name="client_creditcard"><u>כרטיס אשראי:</u></string>
     <string name="client_insert_firstname">הכנס שם פרטי</string>
 </resources>

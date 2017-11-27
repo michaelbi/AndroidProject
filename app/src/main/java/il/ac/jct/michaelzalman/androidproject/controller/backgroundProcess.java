@@ -8,14 +8,15 @@ import il.ac.jct.michaelzalman.androidproject.model.backend.IDBManager;
  * Created by מיכאל on 21/11/2017.
  */
 
-public class backgroundProcess extends AsyncTask<Void,Integer,Void> {
+public class backgroundProcess extends AsyncTask<Void,Integer,Integer> {
 
     private backgroundProcessActions bpa;
 
     public interface backgroundProcessActions
     {
-        public void doInBackground();
+        public Integer doInBackground();
         public void onProgressUpdate(Integer... values);
+        public void onPostExecute(Integer aVoid);
 
     }
 
@@ -26,18 +27,22 @@ public class backgroundProcess extends AsyncTask<Void,Integer,Void> {
     }
 
     @Override
-    protected Void doInBackground(Void... params)
+    protected Integer doInBackground(Void... params)
     {
         bpa.doInBackground();
 
-        return null;
+        return 1;
     }
 
     @Override
     protected void onProgressUpdate(Integer... values)
     {
-        super.onProgressUpdate(values);
-
         bpa.onProgressUpdate(values);
+    }
+
+    @Override
+    protected void onPostExecute(Integer aVoid) {
+        bpa.onPostExecute(aVoid);
+        super.onPostExecute(aVoid);
     }
 }

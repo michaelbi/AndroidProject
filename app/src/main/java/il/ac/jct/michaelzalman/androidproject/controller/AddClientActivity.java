@@ -1,5 +1,6 @@
 package il.ac.jct.michaelzalman.androidproject.controller;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
@@ -7,6 +8,7 @@ import android.speech.tts.Voice;
 import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,52 +72,61 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         if ( v == Add )
         {
-            if(addClientProcess==null || addClientProcess.getStatus()!= AsyncTask.Status.RUNNING) {
-                addClientProcess = new backgroundProcess(new backgroundProcess.backgroundProcessActions() {
-
-                    @Override
-                    public void doInBackground() {
-
-                        addClient();
-                    }
-
-                    @Override
-                    public void onProgressUpdate(Integer... values) {
-                        Toast.makeText(AddClientActivity.this, "Client Added", Toast.LENGTH_LONG).show();
-                    }
-                });
-
-                addClientProcess.execute();
+            if(!Patterns.EMAIL_ADDRESS.matcher(EmailAddress.getText().toString()).matches())
+            {
+                Toast.makeText(this,"Email is ileagal",Toast.LENGTH_LONG).show();
             }
+            else {
+                if (addClientProcess == null || addClientProcess.getStatus() != AsyncTask.Status.RUNNING) {
+                    addClientProcess = new backgroundProcess(new backgroundProcess.backgroundProcessActions() {
 
-            else
-            Toast.makeText(this,"Process is Running",Toast.LENGTH_LONG).show();
+                        @Override
+                        public Integer doInBackground() {
 
+                            addClient();
 
+                            return 1;
+                        }
+
+                        @Override
+                        public void onProgressUpdate(Integer... values) {
+                            Toast.makeText(AddClientActivity.this, "Client Added", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onPostExecute(Integer aVoid) {
+                            Toast.makeText(AddClientActivity.this, "Client Added", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                    addClientProcess.execute();
+                } else
+                    Toast.makeText(this, "Process is Running", Toast.LENGTH_LONG).show();
+
+            }
         }
     }
 
     private void addClient()
     {
-        // Handle clicks for Add
-        ContentValues content = new ContentValues();
-        content.put(TakeAndGoConsts.ClientConst.FIRST_NAME, FirstName.getText().toString());
-        content.put(TakeAndGoConsts.ClientConst.LAST_NAME, LastName.getText().toString());
-        content.put(TakeAndGoConsts.ClientConst.ID, ID.getText().toString());
-        content.put(TakeAndGoConsts.ClientConst.PHONE_NUMBER, PhoneNumber.getText().toString());
-        content.put(TakeAndGoConsts.ClientConst.EMAIL, EmailAddress.getText().toString());
-        content.put(TakeAndGoConsts.ClientConst.CREDIT_CARD, CreditCard.getText().toString());
 
-        try
-        {
+            // Handle clicks for Add
+            ContentValues content = new ContentValues();
+            content.put(TakeAndGoConsts.ClientConst.FIRST_NAME, FirstName.getText().toString());
+            content.put(TakeAndGoConsts.ClientConst.LAST_NAME, LastName.getText().toString());
+            content.put(TakeAndGoConsts.ClientConst.ID, ID.getText().toString());
+            content.put(TakeAndGoConsts.ClientConst.PHONE_NUMBER, PhoneNumber.getText().toString());
+            content.put(TakeAndGoConsts.ClientConst.EMAIL, EmailAddress.getText().toString());
+            content.put(TakeAndGoConsts.ClientConst.CREDIT_CARD, CreditCard.getText().toString());
 
-            DBFactory.getIdbManager().addClient(content);
+            try {
 
+                DBFactory.getIdbManager().addClient(content);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
+
 
 }

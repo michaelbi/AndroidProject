@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="il.ac.jct.michaelzalman.androidproject.controller.AddClientActivity"
     android:layoutDirection="locale"
-    android:background="@color/formBackground"
+    android:background="@drawable/form_background"
     >
 
     <GridLayout
@@ -109,11 +109,14 @@
             android:inputType="number"
             android:hint="ID" />
     </GridLayout>
-        <Button
-            android:id="@+id/Add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add" />
+
+    <Button
+        android:id="@+id/Add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:layout_margin="5dp"
+        />
 
 
 </LinearLayout>
