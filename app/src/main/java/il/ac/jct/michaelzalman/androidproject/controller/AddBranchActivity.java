@@ -54,7 +54,7 @@ public class AddBranchActivity extends Activity implements View.OnClickListener{
             content.put(TakeAndGoConsts.BranchConst.PARKING, ParkingUnits.getText().toString());
             content.put(TakeAndGoConsts.AddressConst.CITY, Address.getText().toString());
             try {
-                new DBFactory().getIdbManager().addBranch(content);
+                DBFactory.getIdbManager().addBranch(content);
             } catch (Exception e) {
                 e.printStackTrace();
             }

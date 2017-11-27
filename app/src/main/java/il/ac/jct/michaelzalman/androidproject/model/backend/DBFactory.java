@@ -10,12 +10,12 @@ public class DBFactory {
     private static IDBManager idbManager = null;
 
     public static IDBManager getIdbManager() {
+        if(idbManager==null)idbManager=new ArrayListDB();
+
         return idbManager;
     }
 
-    public  DBFactory()
+    private DBFactory()
     {
-        if(idbManager == null)
-            idbManager = new ArrayListDB();
     }
 }

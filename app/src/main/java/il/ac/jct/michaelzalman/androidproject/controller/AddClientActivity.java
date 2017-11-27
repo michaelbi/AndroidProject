@@ -1,11 +1,16 @@
 package il.ac.jct.michaelzalman.androidproject.controller;
 
 import android.content.ContentValues;
+import android.os.AsyncTask;
+import android.provider.ContactsContract;
+import android.speech.tts.Voice;
+import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import il.ac.jct.michaelzalman.androidproject.R;
 import il.ac.jct.michaelzalman.androidproject.model.backend.DBFactory;
@@ -14,12 +19,7 @@ import il.ac.jct.michaelzalman.androidproject.model.backend.TakeAndGoConsts;
 
 public class AddClientActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_client);
-        findViews();
-    }
+    private Thread addProcess;
     private EditText FirstName;
     private EditText LastName;
     private EditText CreditCard;
@@ -28,6 +28,19 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
     private EditText ID;
     private Button Add;
 
+    private backgroundProcess addClientProcess;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_client);
+        findViews();
+
+    }
+
+
+
     /**
      * Find the Views in the layout<br />
      * <br />
@@ -35,6 +48,7 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
      * (http://www.buzzingandroid.com/tools/android-layout-finder)
      */
     private void findViews() {
+
         FirstName = (EditText)findViewById( R.id.FirstName );
         LastName = (EditText)findViewById( R.id.LastName );
         CreditCard = (EditText)findViewById( R.id.CreditCard );
@@ -54,20 +68,53 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
      */
     @Override
     public void onClick(View v) {
-        if ( v == Add ) {
-            // Handle clicks for Add
-            ContentValues content = new ContentValues();
-            content.put(TakeAndGoConsts.ClientConst.FIRST_NAME, FirstName.getText().toString());
-            content.put(TakeAndGoConsts.ClientConst.LAST_NAME, LastName.getText().toString());
-            content.put(TakeAndGoConsts.ClientConst.ID, ID.getText().toString());
-            content.put(TakeAndGoConsts.ClientConst.PHONE_NUMBER, PhoneNumber.getText().toString());
-            content.put(TakeAndGoConsts.ClientConst.EMAIL, EmailAddress.getText().toString());
-            content.put(TakeAndGoConsts.ClientConst.CREDIT_CARD, CreditCard.getText().toString());
-            try {
-                new DBFactory().getIdbManager().addClient(content);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if ( v == Add )
+        {
+            if(addClientProcess==null || addClientProcess.getStatus()!= AsyncTask.Status.RUNNING) {
+                addClientProcess = new backgroundProcess(new backgroundProcess.backgroundProcessActions() {
+
+                    @Override
+                    public void doInBackground() {
+
+                        addClient();
+                    }
+
+                    @Override
+                    public void onProgressUpdate(Integer... values) {
+                        Toast.makeText(AddClientActivity.this, "Client Added", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                addClientProcess.execute();
             }
+
+            else
+            Toast.makeText(this,"Process is Running",Toast.LENGTH_LONG).show();
+
+
+        }
+    }
+
+    private void addClient()
+    {
+        // Handle clicks for Add
+        ContentValues content = new ContentValues();
+        content.put(TakeAndGoConsts.ClientConst.FIRST_NAME, FirstName.getText().toString());
+        content.put(TakeAndGoConsts.ClientConst.LAST_NAME, LastName.getText().toString());
+        content.put(TakeAndGoConsts.ClientConst.ID, ID.getText().toString());
+        content.put(TakeAndGoConsts.ClientConst.PHONE_NUMBER, PhoneNumber.getText().toString());
+        content.put(TakeAndGoConsts.ClientConst.EMAIL, EmailAddress.getText().toString());
+        content.put(TakeAndGoConsts.ClientConst.CREDIT_CARD, CreditCard.getText().toString());
+
+        try
+        {
+
+            DBFactory.getIdbManager().addClient(content);
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 

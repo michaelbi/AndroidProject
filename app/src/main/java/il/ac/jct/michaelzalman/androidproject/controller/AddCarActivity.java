@@ -57,7 +57,7 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
             content.put(TakeAndGoConsts.CarConst.CAR_BRANCH_ID, CarBranchId.getText().toString());
             content.put(TakeAndGoConsts.CarConst.KILOMETERS, Kilometers.getText().toString());
             try {
-                new DBFactory().getIdbManager().addCar(content);
+                DBFactory.getIdbManager().addCar(content);
             } catch (Exception e) {
                 e.printStackTrace();
             }

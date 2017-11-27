@@ -7,4 +7,5 @@
     <string name="client_phonenumber">מספר פלאפון:</string>
     <string name="client_email">אימייל:</string>
     <string name="client_creditcard">כרטיס אשראי:</string>
+    <string name="client_insert_firstname">הכנס שם פרטי</string>
 </resources>

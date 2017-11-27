@@ -25,7 +25,7 @@ public class ShowClientsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_clients);
-        final List<Client> clients = new DBFactory().getIdbManager().getAllClients();
+        final List<Client> clients = DBFactory.getIdbManager().getAllClients();
 
         listViewClient = (ListView) findViewById(R.id.listViewClient);
 

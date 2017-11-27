@@ -3,6 +3,7 @@ package il.ac.jct.michaelzalman.androidproject.controller;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +13,7 @@ import il.ac.jct.michaelzalman.androidproject.R;
 import il.ac.jct.michaelzalman.androidproject.model.backend.DBFactory;
 import il.ac.jct.michaelzalman.androidproject.model.backend.TakeAndGoConsts;
 
-public class AddCarModelActivity extends Activity implements View.OnClickListener{
+public class AddCarModelActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class AddCarModelActivity extends Activity implements View.OnClickListene
             content.put(TakeAndGoConsts.CarModelConst.GEAR_BOX, GearBox.getText().toString());
             content.put(TakeAndGoConsts.CarModelConst.SITS_NUMBER, SitsNumber.getText().toString());
             try {
-                new DBFactory().getIdbManager().addCarModel(content);
+                DBFactory.getIdbManager().addCarModel(content);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -17,4 +17,16 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="TextView">
+        <item name="android:textSize">@dimen/clinet_text_size</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="EditTextValues">
+        <item name="android:textSize">@dimen/clinet_hint_text_size</item>
+        <item name="android:textColorHint">@color/textColor</item>
+        <item name="android:textDirection">locale</item>
+        <item name="android:layout_gravity">fill_horizontal</item>
+
+    </style>
 </resources>
