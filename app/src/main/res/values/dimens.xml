@@ -2,4 +2,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="clinet_text_size">18dp</dimen>
     <dimen name="clinet_hint_text_size">14dp</dimen>
+    <dimen name="enum_size">18dp</dimen>
 </resources>

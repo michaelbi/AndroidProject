@@ -30,4 +30,13 @@
         <item name="android:textColor">@color/editTextEntered</item>
 
     </style>
+
+    <style name="Layout_basic">
+        <item name="android:background">@drawable/form_background</item>
+        <item name="android:layoutDirection">locale</item>
+    </style>
+
+    <style name="theme" parent="AppTheme" >
+        <item name="android:colorBackground">@drawable/form_background</item>
+    </style>
 </resources>

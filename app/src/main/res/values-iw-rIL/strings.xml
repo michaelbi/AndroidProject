@@ -8,4 +8,9 @@
     <string name="client_email"><u>אימייל:</u></string>
     <string name="client_creditcard"><u>כרטיס אשראי:</u></string>
     <string name="client_insert_firstname">הכנס שם פרטי</string>
+    <string name="add_button">הוסף</string>
+    <string name="confirm_client_add">לקוח הוסף</string>
+    <string name="error_client_add">חלה שגיאה בהוספת לקוח</string>
+    <string name="error_id">תעודת זהות לא חוקית</string>
+
 </resources>

@@ -83,6 +83,7 @@ public class ArrayListDB  implements IDBManager {
         if (isClientExist(client))
             throw new Exception("trying to add client that allready exist in DB.");
         clients.add(TakeAndGoConsts.ContentValuesToClient(client));
+
     }
 
     @Override

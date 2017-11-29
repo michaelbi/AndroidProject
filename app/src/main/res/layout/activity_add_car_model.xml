@@ -6,9 +6,12 @@
     android:layout_height="match_parent"
     tools:context="il.ac.jct.michaelzalman.androidproject.controller.AddCarModelActivity"
     tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp">
+    tools:layout_editor_absoluteX="0dp"
+    style="@style/Layout_basic"
+    >
 
     <EditText
+        style="@style/EditTextValues"
         android:id="@+id/Brand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +20,7 @@
         android:text="Brand" />
 
     <EditText
+        style="@style/EditTextValues"
         android:id="@+id/ModelName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,6 +29,7 @@
         android:text="Model Name" />
 
     <EditText
+        style="@style/EditTextValues"
         android:id="@+id/EngineCapacity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,15 +37,15 @@
         android:inputType="number"
         android:text="Engine Capacity" />
 
-    <EditText
+    <Spinner
+        style="@style/EditTextValues"
         android:id="@+id/GearBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Gear Box" />
+        />
 
     <EditText
+        style="@style/EditTextValues"
         android:id="@+id/SitsNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
