@@ -1,5 +1,8 @@
 package il.ac.jct.michaelzalman.androidproject.controller;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 
 import il.ac.jct.michaelzalman.androidproject.model.backend.IDBManager;
@@ -18,6 +21,7 @@ public class backgroundProcess<Param,Prog,Res> extends AsyncTask<Param,Prog,Res>
         public void onPostExecute(R aVoid);
 
     }
+
 
     public backgroundProcess(backgroundProcessActions aBPM) {
         super();

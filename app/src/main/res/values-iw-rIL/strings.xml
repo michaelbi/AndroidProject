@@ -12,5 +12,7 @@
     <string name="confirm_client_add">לקוח הוסף</string>
     <string name="error_client_add">חלה שגיאה בהוספת לקוח</string>
     <string name="error_id">תעודת זהות לא חוקית</string>
+    <string name="car_editText_branch_id">הכנס מזהה סניף</string>
+    <string name="kilometers">הכנס קילומטרז</string>
 
 </resources>

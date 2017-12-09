@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,19 +24,28 @@ import il.ac.jct.michaelzalman.androidproject.R;
 import il.ac.jct.michaelzalman.androidproject.model.backend.*;
 import il.ac.jct.michaelzalman.androidproject.model.entities.*;
 
+/**
+ * Controller Class For Adding Car to DB
+ */
 public class AddCarActivity extends AppCompatActivity implements View.OnClickListener{
 
+    //------------------Class Arguments--------------------//
     private LinearLayout rootView;
     private Spinner CarModelSpinner;
-    private EditText CarBranchId;
+    private Spinner CarBranchIdSpinner;
     private EditText Kilometers;
     private Button Add;
     private List<CarModel> carModels;
+    private List<Branch> branches;
     private IDBManager manager;
 
     private backgroundProcess<Void,Void,List<CarModel>> bgpGetCarModels;
     ProgressDialog progressDialog;
-    ArrayAdapter adapter;
+    AlertDialog alert;
+    ArrayAdapter carModeladapter;
+
+    private backgroundProcess<Void,Void,List<Branch>> bgpGetBranches;
+    ArrayAdapter branchesAdapter;
 
 
 
@@ -45,51 +53,17 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
-        findViews();
 
+        findViews();    // find views in xml layout file
+
+        //initilize Idbmanager argument
         manager = DBFactory.getIdbManager();
 
         carModels = new ArrayList<>();
 
-        bgpGetCarModels = new backgroundProcess<>(new backgroundProcess.backgroundProcessActions<Void,Void,List<CarModel>>() {
+        branches = new ArrayList<>();
 
-            @Override
-            public List<CarModel> doInBackground() {
-                return manager.getAllCarModels();
-            }
-
-            @Override
-            public void onPostExecute(List<CarModel> aList) {
-                carModels = aList;
-                progressDialog.cancel();
-
-                if(carModels == null || carModels.isEmpty()){
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(AddCarActivity.this);
-                    builder1.setMessage("הוסף מודל תחילה");
-                    builder1.setCancelable(true);
-
-                    builder1.setPositiveButton(
-                            "מובן",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                    finish();
-                                }
-                            });
-
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
-                }
-                else
-                {
-                    adapter.clear();
-                    adapter.addAll(aList);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
-
-        adapter = new ArrayAdapter(AddCarActivity.this, R.layout.car_models_item, carModels) {
+        carModeladapter = new ArrayAdapter(AddCarActivity.this, R.layout.car_models_item, carModels) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -115,15 +89,49 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
 
         };
 
-        CarModelSpinner.setAdapter(adapter);
+        CarModelSpinner.setAdapter(carModeladapter);
+
+        branchesAdapter = new ArrayAdapter(this,R.layout.branch_item,branches){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                return getCommonView(position, convertView, parent);
+            }
+
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                return getCommonView(position, convertView, parent);
+            }
+
+            private View getCommonView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
+            {
+                if(convertView == null)
+                {
+                    convertView = View.inflate(AddCarActivity.this,R.layout.branch_item,null);
+                }
+
+                TextView tv = (TextView) convertView.findViewById(R.id.branch_item);
+
+                tv.setText(String.valueOf(branches.get(position).getId()));
+
+                return convertView;
+            }
+        };
+
+        CarBranchIdSpinner.setAdapter(branchesAdapter);
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        loading();
 
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        loadingCarModels();
     }
 
     /**
@@ -135,7 +143,7 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
     private void findViews() {
         rootView = (LinearLayout)findViewById( 0 );
         CarModelSpinner = (Spinner)findViewById( R.id.CarModel );
-        CarBranchId = (EditText)findViewById( R.id.CarBranchId );
+        CarBranchIdSpinner = (Spinner)findViewById( R.id.SpinnerCarBranchId );
         Kilometers = (EditText)findViewById( R.id.Kilometers );
         Add = (Button)findViewById( R.id.Add );
 
@@ -154,7 +162,7 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
             // Handle clicks for Add
             ContentValues content = new ContentValues();
             content.put(TakeAndGoConsts.CarConst.CAR_MODEL, CarModelSpinner.getSelectedItem().toString());
-            content.put(TakeAndGoConsts.CarConst.CAR_BRANCH_ID, CarBranchId.getText().toString());
+            content.put(TakeAndGoConsts.CarConst.CAR_BRANCH_ID, ((Branch)(CarBranchIdSpinner.getSelectedItem())).getId());
             content.put(TakeAndGoConsts.CarConst.KILOMETERS, Kilometers.getText().toString());
 
             try
@@ -169,7 +177,7 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    private void loading()
+    private void loadingCarModels()
     {
         progressDialog = ProgressDialog.show(this,"","טוען מודלי רכב",true);
         progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"בטל",new DialogInterface.OnClickListener(){
@@ -181,7 +189,104 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
 
             }
         });
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(AddCarActivity.this);
+        builder1.setMessage("הוסף מודל תחילה");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "מובן",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        finish();
+                    }
+                });
+
+        alert = builder1.create();
+
+        bgpGetCarModels = new backgroundProcess<>(new backgroundProcess.backgroundProcessActions<Void,Void,List<CarModel>>() {
+
+            @Override
+            public List<CarModel> doInBackground() {
+                return manager.getAllCarModels();
+            }
+
+            @Override
+            public void onPostExecute(List<CarModel> aList) {
+                carModels = aList;
+                progressDialog.cancel();
+
+                if(carModels == null || carModels.isEmpty()){
+                    alert.show();
+                }
+                else
+                {
+                    carModeladapter.clear();
+                    carModeladapter.addAll(aList);
+                    carModeladapter.notifyDataSetChanged();
+                    progressDialog = ProgressDialog.show(AddCarActivity.this,"","טוען רשימת סניפים",true);
+                    progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"בטל",new DialogInterface.OnClickListener(){
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            progressDialog.dismiss();
+                            finish();
+
+                        }
+                    });
+                    progressDialog.show();
+                    loadingBranches();
+                }
+            }
+        });
+
         bgpGetCarModels.execute();
+    }
+
+    private void loadingBranches()
+    {
+        bgpGetBranches = new backgroundProcess<>(new backgroundProcess.backgroundProcessActions<Void,Void,List<Branch>>() {
+
+            @Override
+            public List<Branch> doInBackground() {
+                return manager.getAllBranchs();
+            }
+
+            @Override
+            public void onPostExecute(List<Branch> aList) {
+
+                progressDialog.cancel();
+                branches = aList;
+
+                if(branches==null || branches.isEmpty())
+                {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(AddCarActivity.this);
+                    builder1.setMessage("הוסף סניפים תחילה");
+                    builder1.setCancelable(true);
+
+                    builder1.setPositiveButton(
+                            "מובן",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    finish();
+                                }
+                            });
+
+                    alert = builder1.create();
+                    alert.show();
+                }
+                else
+                {
+                    branchesAdapter.clear();
+                    branchesAdapter.addAll(branches);
+                    branchesAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        bgpGetBranches.execute();
     }
 
 }

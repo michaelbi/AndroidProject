@@ -24,6 +24,7 @@ public class ArrayListDB  implements IDBManager {
 
 
 
+
     //region Description static incremental id's
     public static int getCarId() {
         return carId++;
@@ -102,8 +103,10 @@ public class ArrayListDB  implements IDBManager {
 
     @Override
     public void addBranch(ContentValues branch) throws Exception {
+        branch.remove(TakeAndGoConsts.BranchConst.ID);
+        branch.put(TakeAndGoConsts.BranchConst.ID, Branch.getBranchId());
         if (isBranchExist(branch))
-            throw new Exception("trying to add branch that allready exist in DB.");
+            throw new Exception("trying to add branch that already exist in DB.");
         branches.add(TakeAndGoConsts.ContentValuesToBranch(branch));
     }
 
@@ -142,10 +145,10 @@ public class ArrayListDB  implements IDBManager {
     }
 
         private boolean isBranchExist(ContentValues branch) {
-        if(branches.isEmpty())
+        if(branches.isEmpty() || Integer.parseInt(branch.get(TakeAndGoConsts.CarModelConst.ID).toString())==0)
             return false;
         for (Branch b :branches) {
-            if(b.getId() == (int)branch.get(TakeAndGoConsts.CarModelConst.ID))
+            if(b.getId() == Integer.parseInt(branch.get(TakeAndGoConsts.CarModelConst.ID).toString()))
                 return true;
         }
         return false;

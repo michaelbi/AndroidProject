@@ -32,14 +32,14 @@ public class TakeAndGoConsts {
 
         Branch branch=new Branch();
 
-        Address a=new Address();
-        a.setCity((String) content.get(TakeAndGoConsts.AddressConst.CITY));
-        a.setStreet((String) content.get(TakeAndGoConsts.AddressConst.STREET));
-        a.setNumber((int) content.get(TakeAndGoConsts.AddressConst.NUMBER));
+//        Address a=new Address();
+//        a.setCity((String) content.get(TakeAndGoConsts.AddressConst.CITY));
+//        a.setStreet((String) content.get(TakeAndGoConsts.AddressConst.STREET));
+//        a.setNumber(Integer.parseInt(content.get(TakeAndGoConsts.AddressConst.NUMBER).toString()));
 
-        branch.setAddress(a);
-        branch.setId((int)content.get(TakeAndGoConsts.BranchConst.ID));
-        branch.setParkingUnits((int) content.get(TakeAndGoConsts.BranchConst.PARKING));
+        branch.setAddress(null);
+        branch.setId(0);
+        branch.setParkingUnits(Integer.parseInt(content.get(TakeAndGoConsts.BranchConst.PARKING).toString()));
 
         return branch;
 
@@ -129,9 +129,6 @@ public class TakeAndGoConsts {
 
     }
     //endregion
-
-
-
 
     //region Car ContentValues
     public static class CarConst{

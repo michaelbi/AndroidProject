@@ -16,6 +16,8 @@
     <string name="confirm_client_add">לקוח הוסף</string>
     <string name="error_client_add">חלה שגיאה בהוספת לקוח</string>
     <string name="error_id">תעודת זהות לא חוקית</string>
+    <string name="car_editText_branch_id">Enter Car Branch Id</string>
+    <string name="kilometers">Enter Car Kilometers</string>
 
 
 </resources>

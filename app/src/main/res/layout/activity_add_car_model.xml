@@ -15,7 +15,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Brand" />
+        android:hint="Brand"
+        android:maxLength="25"
+        android:maxLines="1"/>
 
     <EditText
         style="@style/EditTextValues"
@@ -24,7 +26,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Model Name" />
+        android:maxLength="25"
+        android:hint="Model Name"
+        android:maxLines="1"/>
 
     <EditText
         style="@style/EditTextValues"
@@ -33,7 +37,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
-        android:text="Engine Capacity" />
+        android:maxLength="4"
+        android:hint="Engine Capacity"
+        android:maxLines="1"/>
 
     <Spinner
         style="@style/EditTextValues"
@@ -49,9 +55,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
-        android:text="Sits Number" />
-
-
+        android:maxLength="2"
+        android:hint="Sits Number"
+        android:maxLines="1"/>
 
     <Button
         android:id="@+id/Add"

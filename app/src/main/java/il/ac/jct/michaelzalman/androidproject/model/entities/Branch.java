@@ -7,10 +7,15 @@ package il.ac.jct.michaelzalman.androidproject.model.entities;
 
 public class Branch
 {
-
+    private static int BRANCH_ID=0;
     private Address address;
     private int parkingUnits;
     private int Id;
+
+    public Branch()
+    {
+        BRANCH_ID++;
+    }
 
     public Address getAddress() {
         return address;
@@ -34,6 +39,10 @@ public class Branch
 
     public void setId(int id) {
         this.Id = id;
+    }
+
+    public static int getBranchId() {
+        return BRANCH_ID;
     }
 
 }

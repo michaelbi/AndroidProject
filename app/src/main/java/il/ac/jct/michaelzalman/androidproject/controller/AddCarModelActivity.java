@@ -18,6 +18,14 @@ import il.ac.jct.michaelzalman.androidproject.model.entities.CarModel;
 
 public class AddCarModelActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private LinearLayout rootView;
+    private EditText Brand;
+    private EditText ModelName;
+    private EditText EngineCapacity;
+    private Spinner GearBox;
+    private EditText SitsNumber;
+    private Button Add;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +37,6 @@ public class AddCarModelActivity extends AppCompatActivity implements View.OnCli
 
         GearBox.setAdapter(new ArrayAdapter<CarModel.Gearbox>(this,R.layout.gearbox_enum,gearboxlist));
     }
-    private LinearLayout rootView;
-    private EditText Brand;
-    private EditText ModelName;
-    private EditText EngineCapacity;
-    private Spinner GearBox;
-    private EditText SitsNumber;
-    private Button Add;
 
     /**
      * Find the Views in the layout<br />

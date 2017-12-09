@@ -1,6 +1,8 @@
 package il.ac.jct.michaelzalman.androidproject.controller;
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +18,7 @@ import il.ac.jct.michaelzalman.androidproject.model.backend.TakeAndGoConsts;
 
 public class AddClientActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Thread addProcess;
+    //-----------------Class Arguments--------------------//
     private EditText FirstName;
     private EditText LastName;
     private EditText CreditCard;
@@ -25,15 +27,21 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
     private EditText ID;
     private Button Add;
 
+    //-----------------AsyncTask Variables----------------//
     private backgroundProcess<Void, Void, Boolean> addClientProcess;
     private backgroundProcess.backgroundProcessActions<Void, Void, Boolean> actions;
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_client);
+
+        //find all views and set them to the class arguments
         findViews();
 
+        //initialise backgroundProcess Interface
         actions = new backgroundProcess.backgroundProcessActions<Void, Void, Boolean>() {
 
             @Override
@@ -43,6 +51,7 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onPostExecute(Boolean aVoid) {
+                progressDialog.dismiss();
 
                 if (aVoid)
                     Toast.makeText(AddClientActivity.this, R.string.confirm_client_add, Toast.LENGTH_LONG).show();
@@ -51,6 +60,23 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
             }
         };
 
+        //define ProgressDialog Param
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("מוסיף איש קשר");
+        progressDialog.setTitle("בתהליך");
+
+        //set progressDialog cancel Button
+        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "בטל", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(addClientProcess!=null && addClientProcess.getStatus()== AsyncTask.Status.RUNNING)
+                {
+                    addClientProcess.cancel(true);
+                }
+
+                progressDialog.dismiss();
+            }
+        });
     }
 
 
@@ -97,6 +123,7 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
             else {
                 if (addClientProcess == null || addClientProcess.getStatus() != AsyncTask.Status.RUNNING) {
                     addClientProcess = new backgroundProcess(actions);
+                    progressDialog.show();
                     addClientProcess.execute();
 
                 } else
@@ -106,6 +133,11 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
+    /**
+     * Function to Add Client
+     *
+     * @return  Boolean represents successful adding of Client
+     */
     private boolean addClient() {
 
         // Handle clicks for Add
@@ -117,19 +149,32 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
         content.put(TakeAndGoConsts.ClientConst.EMAIL, EmailAddress.getText().toString());
         content.put(TakeAndGoConsts.ClientConst.CREDIT_CARD, CreditCard.getText().toString());
 
-        try {
-
+        try
+        {
             DBFactory.getIdbManager().addClient(content);
-
         } catch (Exception e) {
             return false;
         }
         return true;
     }
 
+    /**
+     * Check Validity of ID Number
+     *
+     * @return  Boolean represents correction of ID
+     */
     private boolean checkId() {
         int sum = 0;
-        int id = Integer.parseInt(ID.getText().toString());
+        int id;
+
+        try
+        {
+            id = Integer.parseInt(ID.getText().toString());
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
 
         if (id >= 1000000000)
             return false;
@@ -147,6 +192,11 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
         return true;
     }
 
+    /**
+     * Check if All Fields were filled
+     *
+     * @return  Boolean represents status of empty fields
+     */
     private boolean emptyBoxes() {
         return (FirstName.getText().toString().isEmpty() || LastName.getText().toString().isEmpty() ||
                 ID.getText().toString().isEmpty() || PhoneNumber.getText().toString().isEmpty() ||
