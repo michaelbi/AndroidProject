@@ -6,24 +6,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="il.ac.jct.michaelzalman.androidproject.controller.ShowClientsActivity"
-    tools:layout_editor_absoluteY="0dp"
-    tools:layout_editor_absoluteX="0dp">
+    android:orientation="vertical">
 
-    <!--<TableLayout android:id="@+id/ClientsTable"-->
-        <!--android:layout_width="368dp"-->
-        <!--android:layout_height="495dp"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:layout_marginRight="8dp"-->
-        <!--app:layout_constraintRight_toRightOf="parent">-->
-    <!--</TableLayout>-->
+    <RadioGroup
+        android:id="@+id/show_choice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/show_clients"
+        android:orientation="horizontal"
+        android:onClick="onClick">
 
-       <ListView
-            android:id="@+id/listViewClient"
-           android:layout_height="wrap_content"
-           android:layout_width="match_parent"
-           android:padding="10dp"
-           />
+        <RadioButton
+            android:id="@+id/show_clients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="לקוחות" />
+
+        <RadioButton
+            android:id="@+id/show_branches"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="סניפים" />
+
+        <RadioButton
+            android:id="@+id/show_carmodels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="מודלים" />
+
+        <RadioButton
+            android:id="@+id/show_cars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="מכוניות" />
+    </RadioGroup>
+    <ListView
+        android:id="@+id/listViewClient"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp" />
 
 
 </LinearLayout>

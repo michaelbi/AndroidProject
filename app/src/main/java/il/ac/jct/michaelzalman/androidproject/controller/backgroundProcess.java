@@ -1,11 +1,6 @@
 package il.ac.jct.michaelzalman.androidproject.controller;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
-
-import il.ac.jct.michaelzalman.androidproject.model.backend.IDBManager;
 
 /**
  * Created by מיכאל on 21/11/2017.

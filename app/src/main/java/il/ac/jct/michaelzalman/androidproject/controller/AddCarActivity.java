@@ -161,7 +161,7 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
         if ( v == Add ) {
             // Handle clicks for Add
             ContentValues content = new ContentValues();
-            content.put(TakeAndGoConsts.CarConst.CAR_MODEL, CarModelSpinner.getSelectedItem().toString());
+            content.put(TakeAndGoConsts.CarConst.CAR_MODEL, ((CarModel)CarModelSpinner.getSelectedItem()).getId());
             content.put(TakeAndGoConsts.CarConst.CAR_BRANCH_ID, ((Branch)(CarBranchIdSpinner.getSelectedItem())).getId());
             content.put(TakeAndGoConsts.CarConst.KILOMETERS, Kilometers.getText().toString());
 

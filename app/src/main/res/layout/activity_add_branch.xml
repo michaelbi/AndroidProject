@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="Address" />
+        android:hint="@string/add_branch_address_hint" />
 
     <EditText
         android:id="@+id/ParkingUnits"
@@ -21,11 +21,11 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
-        android:text="Parking Units" />
+        android:hint="@string/add_branch_hint_parking_units" />
 
     <Button
         android:id="@+id/Add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add" />
+        android:text="@string/add_button" />
 </LinearLayout>

@@ -154,10 +154,10 @@ public class TakeAndGoConsts {
 
         Car car=new Car();
 
-        car.setCarBranchId((int)content.get(CarConst.CAR_BRANCH_ID));
+        car.setCarBranchId(Integer.parseInt(content.get(CarConst.CAR_BRANCH_ID).toString()));
         car.setCarModel((String) content.get(CarConst.CAR_MODEL));
         car.setId((String) content.get(CarConst.ID));
-        car.setKilometers((int)content.get(CarConst.KILOMETERS));
+        car.setKilometers(Integer.parseInt(content.get(CarConst.KILOMETERS).toString()));
 
         return car;
 

@@ -1,29 +1,75 @@
 package il.ac.jct.michaelzalman.androidproject.controller;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import il.ac.jct.michaelzalman.androidproject.R;
 import il.ac.jct.michaelzalman.androidproject.model.backend.DBFactory;
+import il.ac.jct.michaelzalman.androidproject.model.backend.IDBManager;
 import il.ac.jct.michaelzalman.androidproject.model.backend.TakeAndGoConsts;
 
-public class AddBranchActivity extends Activity implements View.OnClickListener{
+public class AddBranchActivity extends AppCompatActivity implements View.OnClickListener{
+
+    private EditText Address;
+    private EditText ParkingUnits;
+    private Button Add;
+    private IDBManager manager=DBFactory.getIdbManager();
+    private ContentValues branchToAdd;
+
+    private backgroundProcess<Void,Void,Boolean> bgpAddBranch;
+    private backgroundProcess.backgroundProcessActions<Void,Void,Boolean> bgpAction;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_branch);
+
         findViews();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("מוסיף סניף");
+        progressDialog.setTitle("בתהליך");
+        progressDialog.setCancelable(true);
+
+        bgpAction = new backgroundProcess.backgroundProcessActions<Void, Void, Boolean>() {
+            @Override
+            public Boolean doInBackground() {
+                try {
+                    manager.addBranch(branchToAdd);
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+
+                return true;
+
+            }
+
+            @Override
+            public void onPostExecute(Boolean aVoid) {
+                progressDialog.cancel();
+
+                if(aVoid)
+                {
+                    Toast.makeText(AddBranchActivity.this,"סניף הוסף",Toast.LENGTH_LONG).show();
+                }
+                else
+                Toast.makeText(AddBranchActivity.this,"חלה שגיאה",Toast.LENGTH_LONG).show();
+
+
+            }
+        };
+
+
     }
-    private LinearLayout rootView;
-    private EditText Address;
-    private EditText ParkingUnits;
-    private Button Add;
 
     /**
      * Find the Views in the layout<br />
@@ -32,7 +78,6 @@ public class AddBranchActivity extends Activity implements View.OnClickListener{
      * (http://www.buzzingandroid.com/tools/android-layout-finder)
      */
     private void findViews() {
-        rootView = (LinearLayout)findViewById( 0 );
         Address = (EditText)findViewById( R.id.Address );
         ParkingUnits = (EditText)findViewById( R.id.ParkingUnits );
         Add = (Button)findViewById( R.id.Add );
@@ -53,8 +98,12 @@ public class AddBranchActivity extends Activity implements View.OnClickListener{
             ContentValues content = new ContentValues();
             content.put(TakeAndGoConsts.BranchConst.PARKING, ParkingUnits.getText().toString());
             content.put(TakeAndGoConsts.AddressConst.CITY, Address.getText().toString());
+            branchToAdd=content;
+
             try {
-                DBFactory.getIdbManager().addBranch(content);
+                progressDialog.show();
+                bgpAddBranch=new backgroundProcess<>(bgpAction);
+                bgpAddBranch.execute();
             } catch (Exception e) {
                 e.printStackTrace();
             }
