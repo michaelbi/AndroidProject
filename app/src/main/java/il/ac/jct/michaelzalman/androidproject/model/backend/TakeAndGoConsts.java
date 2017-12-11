@@ -32,14 +32,13 @@ public class TakeAndGoConsts {
 
         Branch branch=new Branch();
 
-//        Address a=new Address();
-//        a.setCity((String) content.get(TakeAndGoConsts.AddressConst.CITY));
-//        a.setStreet((String) content.get(TakeAndGoConsts.AddressConst.STREET));
-//        a.setNumber(Integer.parseInt(content.get(TakeAndGoConsts.AddressConst.NUMBER).toString()));
-
-        branch.setAddress(null);
-        branch.setId(0);
+        Address a=new Address();
+        a.setCity((String) content.get(TakeAndGoConsts.AddressConst.CITY));
+        a.setStreet((String) content.get(TakeAndGoConsts.AddressConst.STREET));
+        a.setNumber(Integer.parseInt(content.get(TakeAndGoConsts.AddressConst.NUMBER).toString()));
+        branch.setAddress(a);
         branch.setParkingUnits(Integer.parseInt(content.get(TakeAndGoConsts.BranchConst.PARKING).toString()));
+        branch.setId(content.getAsInteger(BranchConst.ID));
 
         return branch;
 
@@ -155,8 +154,8 @@ public class TakeAndGoConsts {
         Car car=new Car();
 
         car.setCarBranchId(Integer.parseInt(content.get(CarConst.CAR_BRANCH_ID).toString()));
-        car.setCarModel((String) content.get(CarConst.CAR_MODEL));
-        car.setId((String) content.get(CarConst.ID));
+        car.setCarModel(content.get(CarConst.CAR_MODEL).toString());
+        car.setId(content.get(CarConst.ID).toString());
         car.setKilometers(Integer.parseInt(content.get(CarConst.KILOMETERS).toString()));
 
         return car;

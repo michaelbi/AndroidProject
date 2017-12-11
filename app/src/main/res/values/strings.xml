@@ -20,6 +20,8 @@
     <string name="kilometers">Enter Car Kilometers</string>
     <string name="add_branch_address_hint">Enter Address</string>
     <string name="add_branch_hint_parking_units">Enter Sum Of Parking Units</string>
+    <string name="add_branch_street">Enter Street</string>
+    <string name="branch_enter_apartment_number">Enter Apartment Number</string>
 
 
 </resources>

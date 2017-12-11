@@ -16,5 +16,7 @@
     <string name="kilometers">הכנס קילומטרז</string>
     <string name="add_branch_address_hint">הכנס כתובת</string>
     <string name="add_branch_hint_parking_units">הכנס מספר מקומות חנייה</string>
+    <string name="add_branch_street">Enter Street</string>
+    <string name="branch_enter_apartment_number">Enter Apartment Number</string>
 
 </resources>

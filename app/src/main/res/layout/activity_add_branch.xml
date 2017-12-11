@@ -8,12 +8,29 @@
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp">
     <EditText
-        android:id="@+id/Address"
+        android:id="@+id/Address_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
         android:hint="@string/add_branch_address_hint" />
+
+    <EditText
+        android:id="@+id/Address_street"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="@string/add_branch_street" />
+
+    <EditText
+        android:id="@+id/Address_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="@string/branch_enter_apartment_number" />
+
 
     <EditText
         android:id="@+id/ParkingUnits"

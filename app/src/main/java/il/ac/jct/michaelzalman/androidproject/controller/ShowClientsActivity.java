@@ -169,9 +169,9 @@ public class ShowClientsActivity extends AppCompatActivity implements View.OnCli
                             TextView lastName = (TextView) convertView.findViewById(R.id.branch_show_item_address);
                             TextView id = (TextView) convertView.findViewById(R.id.branch_show_item_parking);
 
-                            name.setText("id");
+                            name.setText(""+branchArrayList.get(position).getId());
                             //Address a=branchArrayList.get(position).getAddress();
-                            lastName.setText("f,uc,");
+                            lastName.setText(branchArrayList.get(position).getAddress().getCity());
                             id.setText(""+branchArrayList.get(position).getParkingUnits());
 
                             return convertView;
@@ -212,12 +212,9 @@ public class ShowClientsActivity extends AppCompatActivity implements View.OnCli
                             TextView lastName = (TextView) convertView.findViewById(R.id.car_model);
                             TextView id = (TextView) convertView.findViewById(R.id.car_kilimeters);
 
-//                            name.setText("fvfdv");
-//                            lastName.setText(carArrayList.get(position).getCarModel());
-//                            id.setText(carArrayList.get(position).getKilometers());
-                            name.setText("fvfdv");
-                            lastName.setText("nfgbnf");
-                            id.setText("dvf");
+                            name.setText(carArrayList.get(position).getId());
+                            lastName.setText(carArrayList.get(position).getCarModel());
+                            id.setText(""+carArrayList.get(position).getKilometers());
 
                             return convertView;
                         }

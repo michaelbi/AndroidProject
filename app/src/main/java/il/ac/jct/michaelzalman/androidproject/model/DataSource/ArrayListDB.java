@@ -25,27 +25,25 @@ public class ArrayListDB  implements IDBManager {
 
 
 
+
+
     //region Description static incremental id's
+    private static int CAR_INDEX=10000;
+    private static int BRANCH_INDEX=20000;
+    private static int CAR_MODEL_INDEX=30000;
+
     public static int getCarId() {
-        return carId++;
+        return CAR_INDEX++;
     }
 
     public static int getCarModelId() {
-        return carModelId++;
+        return BRANCH_INDEX++;
     }
 
     public static int getBranchId() {
-        return branchId++;
+        return CAR_MODEL_INDEX++;
     }
-    private static int carId;
-    private static int carModelId;
-    private static int branchId;
 
-    static {
-        carId = 1000;
-        carModelId = 2000;
-        branchId = 3000;
-    }
     //endregion
 
 
@@ -91,22 +89,22 @@ public class ArrayListDB  implements IDBManager {
     public void addCarModel(ContentValues carModel) throws Exception {
         if (isCarModelExist(carModel))
             throw new Exception("trying to add car model that allready exist in DB.");
+        carModel.put(TakeAndGoConsts.CarConst.ID,getCarModelId());
         carModels.add(TakeAndGoConsts.ContentValuesToCarModel(carModel));
     }
 
     @Override
     public void addCar(ContentValues car) throws Exception {
-        if (isCarExist(car))
-            throw new Exception("trying to add car that allready exist in DB.");
+//        if (isCarExist(car))
+//            throw new Exception("trying to add car that allready exist in DB.");
+        car.put(TakeAndGoConsts.CarConst.ID,getCarId());
         cars.add(TakeAndGoConsts.ContentValuesToCar(car));
     }
 
     @Override
     public void addBranch(ContentValues branch) throws Exception {
         branch.remove(TakeAndGoConsts.BranchConst.ID);
-        branch.put(TakeAndGoConsts.BranchConst.ID, Branch.getBranchId());
-        if (isBranchExist(branch))
-            throw new Exception("trying to add branch that already exist in DB.");
+        branch.put(TakeAndGoConsts.BranchConst.ID, getBranchId());
         branches.add(TakeAndGoConsts.ContentValuesToBranch(branch));
     }
 

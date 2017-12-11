@@ -16,7 +16,9 @@ import il.ac.jct.michaelzalman.androidproject.model.backend.TakeAndGoConsts;
 
 public class AddBranchActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText Address;
+    private EditText AddressCity;
+    private EditText AddressStreet;
+    private EditText AddressNumber;
     private EditText ParkingUnits;
     private Button Add;
     private IDBManager manager=DBFactory.getIdbManager();
@@ -78,7 +80,9 @@ public class AddBranchActivity extends AppCompatActivity implements View.OnClick
      * (http://www.buzzingandroid.com/tools/android-layout-finder)
      */
     private void findViews() {
-        Address = (EditText)findViewById( R.id.Address );
+        AddressCity = (EditText)findViewById( R.id.Address_city );
+        AddressStreet = (EditText)findViewById( R.id.Address_street );
+        AddressNumber = (EditText)findViewById( R.id.Address_number );
         ParkingUnits = (EditText)findViewById( R.id.ParkingUnits );
         Add = (Button)findViewById( R.id.Add );
 
@@ -97,7 +101,10 @@ public class AddBranchActivity extends AppCompatActivity implements View.OnClick
             // Handle clicks for Add
             ContentValues content = new ContentValues();
             content.put(TakeAndGoConsts.BranchConst.PARKING, ParkingUnits.getText().toString());
-            content.put(TakeAndGoConsts.AddressConst.CITY, Address.getText().toString());
+            content.put(TakeAndGoConsts.AddressConst.CITY, AddressCity.getText().toString());
+            content.put(TakeAndGoConsts.AddressConst.STREET, AddressStreet.getText().toString());
+            content.put(TakeAndGoConsts.AddressConst.NUMBER, AddressNumber.getText().toString());
+
             branchToAdd=content;
 
             try {
@@ -111,3 +118,5 @@ public class AddBranchActivity extends AppCompatActivity implements View.OnClick
     }
 
 }
+
+
