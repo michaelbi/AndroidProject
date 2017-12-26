@@ -14,106 +14,64 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:layout_margin="5dp"
-        android:columnCount="2"
-        >
-
-        <TextView
-            style="@style/TextView"
-            android:layout_column="0"
-            android:layout_row="0"
-            android:text="@string/client_name"
-            />
 
         <EditText
             style="@style/EditTextValues"
             android:id="@+id/FirstName"
-            android:layout_column="1"
-            android:layout_row="0"
             android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="@string/client_insert_firstname"
             />
 
-        <TextView
-            style="@style/TextView"
-            android:layout_width="wrap_content"
-            android:layout_column="0"
-            android:layout_row="1"
-            android:text="@string/client_last_name" />
 
         <EditText
             style="@style/EditTextValues"
             android:id="@+id/LastName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="Last Name" />
 
-        <TextView
-            style="@style/TextView"
-            android:layout_width="wrap_content"
-            android:layout_column="0"
-            android:layout_row="2"
-            android:text="@string/client_creditcard" />
 
         <EditText
             style="@style/EditTextValues"
             android:id="@+id/CreditCard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
             android:hint="Credit Card" />
 
-        <TextView
-            style="@style/TextView"
-            android:layout_width="wrap_content"
-            android:layout_column="0"
-            android:layout_row="3"
-            android:text="@string/client_email" />
-
         <EditText
             style="@style/EditTextValues"
             android:id="@+id/EmailAddress"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textEmailAddress"
             android:hint="Email Address" />
 
-        <TextView
-            style="@style/TextView"
-            android:layout_width="wrap_content"
-            android:layout_column="0"
-            android:layout_row="4"
-            android:text="@string/client_phonenumber" />
 
         <EditText
             style="@style/EditTextValues"
             android:id="@+id/PhoneNumber"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="phone"
             android:hint="Phone Number" />
 
-        <TextView
-            style="@style/TextView"
-            android:layout_width="wrap_content"
-            android:layout_column="0"
-            android:layout_row="5"
-            android:text="@string/client_id" />
-
         <EditText
             style="@style/EditTextValues"
             android:id="@+id/ID"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:maxLength="9"
             android:inputType="number"
             android:hint="ID" />
-    </GridLayout>
 
     <Button
         android:id="@+id/Add"
