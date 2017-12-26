@@ -11,7 +11,7 @@ public class DBFactory {
     private static IDBManager idbManager = null;
 
     public static IDBManager getIdbManager() {
-        if(idbManager==null)idbManager=new ArrayListDB();
+        if(idbManager==null)idbManager=new MySQL_DBManager();
 
         return idbManager;
     }

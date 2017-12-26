@@ -16,7 +16,7 @@ import il.ac.jct.michaelzalman.androidproject.model.entities.Client;
 
 public class MySQL_DBManager implements IDBManager {
 
-    private static String WEB_URL="mbitan.vlab.jct.ac.il/DBmanage/";
+    private static String WEB_URL="http://mbitan.vlab.jct.ac.il/DBmanage/";
 
     @Override
     public boolean isClientExist(ContentValues client) {
@@ -33,7 +33,7 @@ public class MySQL_DBManager implements IDBManager {
         }
         catch (Exception e)
         {
-
+            System.out.println("error "+e.getMessage());
         }
 
     }

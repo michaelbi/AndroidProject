@@ -71,7 +71,7 @@ public class ArrayListDB  implements IDBManager {
         if (clients.isEmpty())
             return false;
         for (Client c : clients) {
-            if (c.getId() == (String) client.get(TakeAndGoConsts.ClientConst.ID))
+            if (c.getId() == client.getAsString(TakeAndGoConsts.ClientConst.ID))
                 return true;
         }
         return false;

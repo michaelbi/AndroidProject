@@ -84,7 +84,6 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
      * Find the Views in the layout<br />
      * <br />
      * Auto-created on 2017-11-14 20:04:49 by Android Layout Finder
-     * (http://www.buzzingandroid.com/tools/android-layout-finder)
      */
     private void findViews() {
 
