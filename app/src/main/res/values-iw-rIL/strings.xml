@@ -2,11 +2,11 @@
 <resources>
     <string name="main_title">כותרת</string>
     <string name="client_name"><u>שם:</u></string>
-    <string name="client_last_name"><u>שם משפחה:</u></string>
-    <string name="client_id"><u>תעודת זהות:</u></string>
-    <string name="client_phonenumber"><u>מספר פלאפון:</u></string>
-    <string name="client_email"><u>אימייל:</u></string>
-    <string name="client_creditcard"><u>כרטיס אשראי:</u></string>
+    <string name="client_last_name">שם משפחה</string>
+    <string name="client_id">תעודת זהות</string>
+    <string name="client_phonenumber">מספר פלאפון</string>
+    <string name="client_email">אימייל</string>
+    <string name="client_creditcard">כרטיס אשראי</string>
     <string name="client_insert_firstname">הכנס שם פרטי</string>
     <string name="add_button">הוסף</string>
     <string name="confirm_client_add">לקוח הוסף</string>
@@ -16,7 +16,7 @@
     <string name="kilometers">הכנס קילומטרז</string>
     <string name="add_branch_address_hint">הכנס כתובת</string>
     <string name="add_branch_hint_parking_units">הכנס מספר מקומות חנייה</string>
-    <string name="add_branch_street">Enter Street</string>
-    <string name="branch_enter_apartment_number">Enter Apartment Number</string>
+    <string name="add_branch_street">הכנס שם רחוב</string>
+    <string name="branch_enter_apartment_number">הכנס מספר דירה</string>
 
 </resources>

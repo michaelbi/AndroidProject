@@ -1,7 +1,9 @@
 package il.ac.jct.michaelzalman.androidproject.controller;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,6 +20,7 @@ import il.ac.jct.michaelzalman.androidproject.model.entities.CarModel;
 
 public class AddCarModelActivity extends AppCompatActivity implements View.OnClickListener{
 
+    //-------------- Class Arguments----------------//
     private LinearLayout rootView;
     private EditText Brand;
     private EditText ModelName;
@@ -25,6 +28,12 @@ public class AddCarModelActivity extends AppCompatActivity implements View.OnCli
     private Spinner GearBox;
     private EditText SitsNumber;
     private Button Add;
+
+    ContentValues CarModelToAdd;
+
+    private backgroundProcess<Void,Void,Boolean> addCarModelProcess;
+    private backgroundProcess.backgroundProcessActions<Void,Void,Boolean> addAction;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,40 @@ public class AddCarModelActivity extends AppCompatActivity implements View.OnCli
         CarModel.Gearbox gearboxlist[] = CarModel.Gearbox.values();
 
         GearBox.setAdapter(new ArrayAdapter<CarModel.Gearbox>(this,R.layout.gearbox_enum,gearboxlist));
+
+        addAction = new backgroundProcess.backgroundProcessActions<Void, Void, Boolean>() {
+            @Override
+            public Boolean doInBackground() {
+                try {
+
+                    DBFactory.getIdbManager().addCarModel(CarModelToAdd);
+                }
+                catch (Exception e) {
+                    return false;
+                }
+
+                return true;
+            }
+
+            @Override
+            public void onPostExecute(Boolean aVoid) {
+
+                progressDialog.dismiss();
+
+            }
+        };
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("בפעולה");
+        progressDialog.setMessage("מוסיף מודל רכב");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "בטל", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                addCarModelProcess.cancel(true);
+                progressDialog.dismiss();
+            }
+        });
     }
 
     /**
@@ -67,14 +110,17 @@ public class AddCarModelActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if ( v == Add ) {
             // Handle clicks for Add
-            ContentValues content = new ContentValues();
-            content.put(TakeAndGoConsts.CarModelConst.BRAND, Brand.getText().toString());
-            content.put(TakeAndGoConsts.CarModelConst.MODEL_NAME, ModelName.getText().toString());
-            content.put(TakeAndGoConsts.CarModelConst.ENGINE_CAPACITY, EngineCapacity.getText().toString());
-            content.put(TakeAndGoConsts.CarModelConst.GEAR_BOX, GearBox.getSelectedItem().toString());
-            content.put(TakeAndGoConsts.CarModelConst.SITS_NUMBER, SitsNumber.getText().toString());
+            CarModelToAdd = new ContentValues();
+            CarModelToAdd.put(TakeAndGoConsts.CarModelConst.BRAND, Brand.getText().toString());
+            CarModelToAdd.put(TakeAndGoConsts.CarModelConst.MODEL_NAME, ModelName.getText().toString());
+            CarModelToAdd.put(TakeAndGoConsts.CarModelConst.ENGINE_CAPACITY, EngineCapacity.getText().toString());
+            CarModelToAdd.put(TakeAndGoConsts.CarModelConst.GEAR_BOX, GearBox.getSelectedItem().toString());
+            CarModelToAdd.put(TakeAndGoConsts.CarModelConst.SITS_NUMBER, SitsNumber.getText().toString());
             try {
-                DBFactory.getIdbManager().addCarModel(content);
+                progressDialog.show();
+                addCarModelProcess = new backgroundProcess<>(addAction);
+                addCarModelProcess.execute();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

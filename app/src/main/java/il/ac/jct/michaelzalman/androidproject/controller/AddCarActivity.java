@@ -47,6 +47,10 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
     private backgroundProcess<Void,Void,List<Branch>> bgpGetBranches;
     ArrayAdapter branchesAdapter;
 
+    private backgroundProcess<Void,Void,Boolean> addCarProcess;
+    private backgroundProcess.backgroundProcessActions<Void,Void,Boolean> addActions;
+    private ContentValues carToAdd;
+
 
 
     @Override
@@ -62,6 +66,32 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
         carModels = new ArrayList<>();
 
         branches = new ArrayList<>();
+
+        addActions=new backgroundProcess.backgroundProcessActions<Void, Void, Boolean>() {
+            @Override
+            public Boolean doInBackground() {
+
+                try
+                {
+                    DBFactory.getIdbManager().addCar(carToAdd);
+                }
+                catch (Exception e) {
+                    return false;
+                }
+                return true;
+            }
+
+            @Override
+            public void onPostExecute(Boolean aVoid) {
+
+                progressDialog.dismiss();
+                if(aVoid)
+                {
+
+                }
+
+            }
+        };
 
         carModeladapter = new ArrayAdapter(AddCarActivity.this, R.layout.car_models_item, carModels) {
             @NonNull
@@ -160,14 +190,26 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         if ( v == Add ) {
             // Handle clicks for Add
-            ContentValues content = new ContentValues();
-            content.put(TakeAndGoConsts.CarConst.CAR_MODEL, ((CarModel)CarModelSpinner.getSelectedItem()).getId());
-            content.put(TakeAndGoConsts.CarConst.CAR_BRANCH_ID, ((Branch)(CarBranchIdSpinner.getSelectedItem())).getId());
-            content.put(TakeAndGoConsts.CarConst.KILOMETERS, Kilometers.getText().toString());
+            carToAdd = new ContentValues();
+            carToAdd.put(TakeAndGoConsts.CarConst.CAR_MODEL, ((CarModel)CarModelSpinner.getSelectedItem()).getId());
+            carToAdd.put(TakeAndGoConsts.CarConst.CAR_BRANCH_ID, ((Branch)(CarBranchIdSpinner.getSelectedItem())).getId());
+            carToAdd.put(TakeAndGoConsts.CarConst.KILOMETERS, Kilometers.getText().toString());
 
             try
             {
-                DBFactory.getIdbManager().addCar(content);
+                addCarProcess = new backgroundProcess<>(addActions);
+
+                progressDialog = ProgressDialog.show(this,"בפעולה","מוסיף רכב למאגר",true);
+                progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"בטל",new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        progressDialog.dismiss();
+                        addCarProcess.cancel(true);
+                    }
+                });
+
+                addCarProcess.execute();
             }
             catch (Exception e)
             {

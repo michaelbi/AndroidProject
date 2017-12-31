@@ -56,6 +56,29 @@ public class PHPtools {
         } else return "";
     }
 
+    public static String GET(String url) throws Exception {
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestMethod("GET");
+        if (con.getResponseCode() == HttpURLConnection.HTTP_OK)
+        { // success
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = in.readLine()) != null)
+            {
+                response.append(inputLine);
+            }
+            in.close();
+            // print result
+            return response.toString();
+        }
+        else
+            {
+                return "";
+            }
+    }
+
     public static ContentValues jsonToContentValues(JSONObject jsonObject) throws JSONException
     {
         ContentValues contentValues = new ContentValues();

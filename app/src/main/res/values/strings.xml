@@ -1,21 +1,21 @@
 <resources>
+
     <string name="app_name">Take&amp;Go Server</string>
     <string name="main_title">כותרת</string>
     <string name="title_activity_add_client">AddClientActivity</string>
     <string name="client_name"><u>שם:</u></string>
-    <string name="client_last_name"><u>שם משפחה:</u></string>
-    <string name="client_id"><u>תעודת זהות:</u></string>
-    <string name="client_phonenumber"><u>מספר פלאפון:</u></string>
-    <string name="client_email"><u>אימייל:</u></string>
-    <string name="client_creditcard"><u>כרטיס אשראי:</u></string>
-    <string name="client_insert_firstname">הכנס שם פרטי</string>
-    <string name="error_empty_filleds">יש למלא את כל השדות</string>
-    <string name="error_email_ileagal">אימייל לא חוקי</string>
-    <string name="error_phonenumber">מספר פלאפון לא חוקי</string>
-    <string name="add_button">הוסף</string>
-    <string name="confirm_client_add">לקוח הוסף</string>
-    <string name="error_client_add">חלה שגיאה בהוספת לקוח</string>
-    <string name="error_id">תעודת זהות לא חוקית</string>
+    <string name="client_last_name">Last Name</string>
+    <string name="client_id">ID</string>
+    <string name="client_phonenumber">Phone Number</string>
+    <string name="client_email">Email</string>
+    <string name="client_creditcard">Credit Card Number</string>
+    <string name="error_empty_filleds">Fill All The Info</string>
+    <string name="error_email_ileagal">Email Address Illegal</string>
+    <string name="error_phonenumber">Invalid Phone-Number</string>
+    <string name="add_button">Add</string>
+    <string name="confirm_client_add">Add Client</string>
+    <string name="error_client_add">Error Accord During Client Adding</string>
+    <string name="error_id">Invalid ID</string>
     <string name="car_editText_branch_id">Enter Car Branch Id</string>
     <string name="kilometers">Enter Car Kilometers</string>
     <string name="add_branch_address_hint">Enter Address</string>
