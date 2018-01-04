@@ -6,7 +6,6 @@ package il.ac.jct.michaelzalman.androidproject.model.entities;
 
 public class CarModel
 {
-    static int ID=10000;
     public enum Gearbox{AUTOMATIC,MANUAL}
 
     private String Id;
@@ -18,8 +17,6 @@ public class CarModel
 
     public CarModel()
     {
-        Id= String.valueOf(ID);
-        ID++;
     }
 
     public String getId() {

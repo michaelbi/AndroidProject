@@ -118,7 +118,7 @@ public class TakeAndGoConsts {
 
         CarModel carModel = new CarModel();
 
-//        carModel.setId((String)content.get(CarModelConst.ID));
+        carModel.setId((String)content.get(CarModelConst.ID));
         carModel.setBrand((String)content.get(CarModelConst.BRAND));
         carModel.setEngineCapacity(Integer.parseInt(content.get(CarModelConst.ENGINE_CAPACITY).toString()));
         carModel.setGearbox(CarModel.Gearbox.valueOf(content.get(CarModelConst.GEAR_BOX).toString()));

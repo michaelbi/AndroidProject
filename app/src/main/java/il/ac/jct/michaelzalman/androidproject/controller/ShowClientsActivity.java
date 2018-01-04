@@ -216,7 +216,7 @@ public class ShowClientsActivity extends AppCompatActivity implements View.OnCli
                             TextView kilometers = (TextView) convertView.findViewById(R.id.car_kilimeters);
 
                             id.setText(carArrayList.get(position).getId());
-                            CarModel modelObj = null;
+                            CarModel modelObj = new CarModel();
                             Iterator<CarModel> it = carModelArrayList.iterator();
                             while (it.hasNext())
                             {
