@@ -13,19 +13,20 @@ import il.ac.jct.michaelzalman.androidproject.R;
 import il.ac.jct.michaelzalman.androidproject.model.backend.DBFactory;
 import il.ac.jct.michaelzalman.androidproject.model.backend.IDBManager;
 import il.ac.jct.michaelzalman.androidproject.model.backend.TakeAndGoConsts;
+import il.ac.jct.michaelzalman.androidproject.model.backend.Tools;
 
-public class AddBranchActivity extends AppCompatActivity implements View.OnClickListener{
+public class AddBranchActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText AddressCity;
     private EditText AddressStreet;
     private EditText AddressNumber;
     private EditText ParkingUnits;
     private Button Add;
-    private IDBManager manager=DBFactory.getIdbManager();
+    private IDBManager manager = DBFactory.getIdbManager();
     private ContentValues branchToAdd;
 
-    private backgroundProcess<Void,Void,Boolean> bgpAddBranch;
-    private backgroundProcess.backgroundProcessActions<Void,Void,Boolean> bgpAction;
+    private backgroundProcess<Void, Void, Boolean> bgpAddBranch;
+    private backgroundProcess.backgroundProcessActions<Void, Void, Boolean> bgpAction;
 
     ProgressDialog progressDialog;
 
@@ -41,13 +42,14 @@ public class AddBranchActivity extends AppCompatActivity implements View.OnClick
         progressDialog.setCancelable(true);
 
         bgpAction = new backgroundProcess.backgroundProcessActions<Void, Void, Boolean>() {
+            private String error = null;
+
             @Override
             public Boolean doInBackground() {
                 try {
                     manager.addBranch(branchToAdd);
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
+                    error = e.getMessage();
                     return false;
                 }
 
@@ -59,12 +61,10 @@ public class AddBranchActivity extends AppCompatActivity implements View.OnClick
             public void onPostExecute(Boolean aVoid) {
                 progressDialog.cancel();
 
-                if(aVoid)
-                {
-                    Toast.makeText(AddBranchActivity.this,"סניף הוסף",Toast.LENGTH_LONG).show();
-                }
-                else
-                Toast.makeText(AddBranchActivity.this,"חלה שגיאה",Toast.LENGTH_LONG).show();
+                if (aVoid) {
+                    Toast.makeText(AddBranchActivity.this, R.string.success_add_branch, Toast.LENGTH_LONG).show();
+                } else
+                    Toast.makeText(AddBranchActivity.this, error, Toast.LENGTH_LONG).show();
 
 
             }
@@ -80,13 +80,13 @@ public class AddBranchActivity extends AppCompatActivity implements View.OnClick
      * (http://www.buzzingandroid.com/tools/android-layout-finder)
      */
     private void findViews() {
-        AddressCity = (EditText)findViewById( R.id.Address_city );
-        AddressStreet = (EditText)findViewById( R.id.Address_street );
-        AddressNumber = (EditText)findViewById( R.id.Address_number );
-        ParkingUnits = (EditText)findViewById( R.id.ParkingUnits );
-        Add = (Button)findViewById( R.id.Add );
+        AddressCity = (EditText) findViewById(R.id.Address_city);
+        AddressStreet = (EditText) findViewById(R.id.Address_street);
+        AddressNumber = (EditText) findViewById(R.id.Address_number);
+        ParkingUnits = (EditText) findViewById(R.id.ParkingUnits);
+        Add = (Button) findViewById(R.id.Add);
 
-        Add.setOnClickListener( this );
+        Add.setOnClickListener(this);
     }
 
     /**
@@ -97,24 +97,37 @@ public class AddBranchActivity extends AppCompatActivity implements View.OnClick
      */
     @Override
     public void onClick(View v) {
-        if ( v == Add ) {
-            // Handle clicks for Add
-            ContentValues content = new ContentValues();
-            content.put(TakeAndGoConsts.BranchConst.PARKING, ParkingUnits.getText().toString());
-            content.put(TakeAndGoConsts.AddressConst.CITY, AddressCity.getText().toString());
-            content.put(TakeAndGoConsts.AddressConst.STREET, AddressStreet.getText().toString());
-            content.put(TakeAndGoConsts.AddressConst.NUMBER, AddressNumber.getText().toString());
+        if (v == Add && !isFormEmtpy() && Tools.isInternetConnectedToast(this)) {
+                // Handle clicks for Add
+                ContentValues content = new ContentValues();
+                content.put(TakeAndGoConsts.BranchConst.PARKING, ParkingUnits.getText().toString());
+                content.put(TakeAndGoConsts.AddressConst.CITY, AddressCity.getText().toString());
+                content.put(TakeAndGoConsts.AddressConst.STREET, AddressStreet.getText().toString());
+                content.put(TakeAndGoConsts.AddressConst.NUMBER, AddressNumber.getText().toString());
 
-            branchToAdd=content;
+                branchToAdd = content;
 
-            try {
-                progressDialog.show();
-                bgpAddBranch=new backgroundProcess<>(bgpAction);
-                bgpAddBranch.execute();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                try {
+                    progressDialog.show();
+                    bgpAddBranch = new backgroundProcess<>(bgpAction);
+                    bgpAddBranch.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
         }
+    }
+
+    private boolean isFormEmtpy() {
+
+        if( ParkingUnits.getText().toString().isEmpty() ||
+            AddressCity.getText().toString().isEmpty() ||
+            AddressStreet.getText().toString().isEmpty() ||
+            AddressNumber.getText().toString().isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.error_empty_filleds), Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return false;
+
     }
 
 }

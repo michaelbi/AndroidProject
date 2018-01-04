@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Brand"
+        android:hint="@string/car_model_brand"
         android:maxLength="25"
         android:maxLines="1"/>
 
@@ -27,7 +27,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:maxLength="25"
-        android:hint="Model Name"
+        android:hint="@string/car_model_name"
         android:maxLines="1"/>
 
     <EditText
@@ -38,7 +38,7 @@
         android:ems="10"
         android:inputType="number"
         android:maxLength="4"
-        android:hint="Engine Capacity"
+        android:hint="@string/car_model_engine_capacity"
         android:maxLines="1"/>
 
     <Spinner
@@ -56,12 +56,12 @@
         android:ems="10"
         android:inputType="number"
         android:maxLength="2"
-        android:hint="Sits Number"
+        android:hint="@string/car_model_sits_number"
         android:maxLines="1"/>
 
     <Button
         android:id="@+id/Add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add" />
+        android:text="@string/add_button" />
 </LinearLayout>

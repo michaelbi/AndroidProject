@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_backgroud"
+    >
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true">
     <TextView
         android:id="@+id/branch_id_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ID"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
+        android:layout_marginBottom="5dp"
+        android:textColor="#FFF"
         />
 
     <TextView
@@ -18,16 +26,19 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="כתובת"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"/>
+        android:textColor="#FFF"
+        />
+    </LinearLayout>
 
     <TextView
+        android:layout_margin="10dp"
         android:id="@+id/branch_show_item_parking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="מקומות חנייה"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_centerInParent="true"
+        android:textColor="#FFF"/>
 
 
 </RelativeLayout>

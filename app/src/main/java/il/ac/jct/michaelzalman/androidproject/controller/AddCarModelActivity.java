@@ -1,6 +1,5 @@
 package il.ac.jct.michaelzalman.androidproject.controller;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -12,10 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import il.ac.jct.michaelzalman.androidproject.R;
 import il.ac.jct.michaelzalman.androidproject.model.backend.DBFactory;
 import il.ac.jct.michaelzalman.androidproject.model.backend.TakeAndGoConsts;
+import il.ac.jct.michaelzalman.androidproject.model.backend.Tools;
 import il.ac.jct.michaelzalman.androidproject.model.entities.CarModel;
 
 public class AddCarModelActivity extends AppCompatActivity implements View.OnClickListener{
@@ -47,6 +48,8 @@ public class AddCarModelActivity extends AppCompatActivity implements View.OnCli
         GearBox.setAdapter(new ArrayAdapter<CarModel.Gearbox>(this,R.layout.gearbox_enum,gearboxlist));
 
         addAction = new backgroundProcess.backgroundProcessActions<Void, Void, Boolean>() {
+            private String error=null;
+
             @Override
             public Boolean doInBackground() {
                 try {
@@ -54,6 +57,7 @@ public class AddCarModelActivity extends AppCompatActivity implements View.OnCli
                     DBFactory.getIdbManager().addCarModel(CarModelToAdd);
                 }
                 catch (Exception e) {
+                    error = e.getMessage();
                     return false;
                 }
 
@@ -64,6 +68,13 @@ public class AddCarModelActivity extends AppCompatActivity implements View.OnCli
             public void onPostExecute(Boolean aVoid) {
 
                 progressDialog.dismiss();
+
+                if(aVoid)
+                {
+                    Toast.makeText(AddCarModelActivity.this,"מודל הוסף בהצלחה",Toast.LENGTH_LONG).show();
+                }
+                else
+                Toast.makeText(AddCarModelActivity.this,error,Toast.LENGTH_LONG).show();
 
             }
         };
@@ -108,7 +119,7 @@ public class AddCarModelActivity extends AppCompatActivity implements View.OnCli
      */
     @Override
     public void onClick(View v) {
-        if ( v == Add ) {
+        if ( v == Add && !isFormEmpty() && Tools.isInternetConnectedToast(this)) {
             // Handle clicks for Add
             CarModelToAdd = new ContentValues();
             CarModelToAdd.put(TakeAndGoConsts.CarModelConst.BRAND, Brand.getText().toString());
@@ -125,6 +136,21 @@ public class AddCarModelActivity extends AppCompatActivity implements View.OnCli
                 e.printStackTrace();
             }
         }
+    }
+
+    private boolean isFormEmpty()
+    {
+        if( Brand.getText().toString().isEmpty() ||
+            ModelName.getText().toString().isEmpty() ||
+            EngineCapacity.getText().toString().isEmpty() ||
+            GearBox.getSelectedItem().toString().isEmpty() ||
+            SitsNumber.getText().toString().isEmpty())
+        {
+            Toast.makeText(this,getResources().getString(R.string.error_empty_filleds),Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+        return false;
     }
 
 }

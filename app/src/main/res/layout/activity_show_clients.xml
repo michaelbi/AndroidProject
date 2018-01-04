@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="il.ac.jct.michaelzalman.androidproject.controller.ShowClientsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    style="@style/Layout_basic">
 
     <RadioGroup
         android:id="@+id/show_choice"
@@ -14,37 +15,43 @@
         android:layout_height="wrap_content"
         android:checkedButton="@+id/show_clients"
         android:orientation="horizontal"
-        android:onClick="onClick">
+        android:onClick="onClick"
+        android:textColor="#FFF">
 
         <RadioButton
             android:id="@+id/show_clients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="לקוחות" />
+            android:text="לקוחות"
+            android:textColor="#FFF"/>
 
         <RadioButton
             android:id="@+id/show_branches"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="סניפים" />
+            android:text="סניפים"
+            android:textColor="#FFF"/>
 
         <RadioButton
             android:id="@+id/show_carmodels"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="מודלים" />
+            android:text="מודלים"
+            android:textColor="#FFF"/>
 
         <RadioButton
             android:id="@+id/show_cars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="מכוניות" />
+            android:text="מכוניות"
+            android:textColor="#FFF"/>
     </RadioGroup>
     <ListView
         android:id="@+id/listViewClient"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textColor="#FFF"/>
 
 
 </LinearLayout>

@@ -1,9 +1,9 @@
 <resources>
 
     <string name="app_name">Take&amp;Go Server</string>
-    <string name="main_title">כותרת</string>
+    <string name="main_title">Title</string>
     <string name="title_activity_add_client">AddClientActivity</string>
-    <string name="client_name"><u>שם:</u></string>
+    <string name="client_name">Name</string>
     <string name="client_last_name">Last Name</string>
     <string name="client_id">ID</string>
     <string name="client_phonenumber">Phone Number</string>
@@ -18,10 +18,21 @@
     <string name="error_id">Invalid ID</string>
     <string name="car_editText_branch_id">Enter Car Branch Id</string>
     <string name="kilometers">Enter Car Kilometers</string>
-    <string name="add_branch_address_hint">Enter Address</string>
+    <string name="add_branch_address_hint">Enter City</string>
     <string name="add_branch_hint_parking_units">Enter Sum Of Parking Units</string>
     <string name="add_branch_street">Enter Street</string>
     <string name="branch_enter_apartment_number">Enter Apartment Number</string>
-
+    <string name="success_add_branch">Branch Added</string>
+    <string name="car_model_brand">Brand</string>
+    <string name="car_model_name">Model Name</string>
+    <string name="car_model_engine_capacity">Engine Capacity</string>
+    <string name="car_model_sits_number">Sits Number</string>
+    <string name="error_no_internet">No Internet Access Try Again</string>
+    <string name="car_show_item_kilo">Kilometers</string>
+    <string name="main_add_client">Add Client</string>
+    <string name="main_add_carmodel">Add Car Model</string>
+    <string name="main_add_car">Add Car</string>
+    <string name="main_add_branch">Add Branch</string>
+    <string name="main_show_info">Show Info</string>
 
 </resources>

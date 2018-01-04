@@ -18,11 +18,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import il.ac.jct.michaelzalman.androidproject.R;
 import il.ac.jct.michaelzalman.androidproject.model.backend.DBFactory;
 import il.ac.jct.michaelzalman.androidproject.model.backend.IDBManager;
+import il.ac.jct.michaelzalman.androidproject.model.backend.Tools;
 import il.ac.jct.michaelzalman.androidproject.model.entities.Address;
 import il.ac.jct.michaelzalman.androidproject.model.entities.Branch;
 import il.ac.jct.michaelzalman.androidproject.model.entities.Car;
@@ -33,7 +35,6 @@ public class ShowClientsActivity extends AppCompatActivity implements View.OnCli
 
     private IDBManager manager = DBFactory.getIdbManager();
 
-    private RadioGroup showChoice;
     private RadioButton showClients;
     private RadioButton showBranches;
     private RadioButton showCarmodels;
@@ -57,12 +58,14 @@ public class ShowClientsActivity extends AppCompatActivity implements View.OnCli
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("טוען");
-        progressDialog.setTitle("באעינה");
+        progressDialog.setTitle("בטעינה");
         progressDialog.setCancelable(true);
 
         findViews();
 
-        loading();
+        if(Tools.isInternetConnectedAlert(this)) {
+            loading();
+        }
 
 
     }
@@ -74,7 +77,6 @@ public class ShowClientsActivity extends AppCompatActivity implements View.OnCli
      * (http://www.buzzingandroid.com/tools/android-layout-finder)
      */
     private void findViews() {
-        showChoice = (RadioGroup)findViewById( R.id.show_choice );
         showClients = (RadioButton)findViewById( R.id.show_clients );
         showBranches = (RadioButton)findViewById( R.id.show_branches );
         showCarmodels = (RadioButton)findViewById( R.id.show_carmodels );
@@ -165,14 +167,15 @@ public class ShowClientsActivity extends AppCompatActivity implements View.OnCli
                                 convertView = View.inflate(ShowClientsActivity.this, R.layout.branch_show_item, null);
                             }
 
-                            TextView name = (TextView) convertView.findViewById(R.id.branch_id_item);
-                            TextView lastName = (TextView) convertView.findViewById(R.id.branch_show_item_address);
-                            TextView id = (TextView) convertView.findViewById(R.id.branch_show_item_parking);
+                            TextView id = (TextView) convertView.findViewById(R.id.branch_id_item);
+                            TextView address = (TextView) convertView.findViewById(R.id.branch_show_item_address);
+                            TextView parkingUnits = (TextView) convertView.findViewById(R.id.branch_show_item_parking);
 
-                            name.setText(""+branchArrayList.get(position).getId());
-                            //Address a=branchArrayList.get(position).getAddress();
-                            lastName.setText(branchArrayList.get(position).getAddress().getCity());
-                            id.setText(""+branchArrayList.get(position).getParkingUnits());
+                            id.setText(""+branchArrayList.get(position).getId());
+                            address.setText(branchArrayList.get(position).getAddress().getCity()+" "+
+                                            branchArrayList.get(position).getAddress().getStreet()+" "+
+                                            branchArrayList.get(position).getAddress().getNumber());
+                            parkingUnits.setText(""+branchArrayList.get(position).getParkingUnits());
 
                             return convertView;
                         }
@@ -187,13 +190,13 @@ public class ShowClientsActivity extends AppCompatActivity implements View.OnCli
                             }
 
                             if(!carModelArrayList.isEmpty()) {
-                                TextView name = (TextView) convertView.findViewById(R.id.car_model_id);
-                                TextView lastName = (TextView) convertView.findViewById(R.id.car_model_brand);
-                                TextView id = (TextView) convertView.findViewById(R.id.car_model_name);
+                                TextView id = (TextView) convertView.findViewById(R.id.car_model_id);
+                                TextView brand = (TextView) convertView.findViewById(R.id.car_model_brand);
+                                TextView name = (TextView) convertView.findViewById(R.id.car_model_name);
 
-                                name.setText(carModelArrayList.get(position).getId());
-                                lastName.setText(carModelArrayList.get(position).getBrand());
-                                id.setText(carModelArrayList.get(position).getModelName());
+                                id.setText(carModelArrayList.get(position).getId());
+                                brand.setText(carModelArrayList.get(position).getBrand());
+                                name.setText(carModelArrayList.get(position).getModelName());
                             }
 
                             return convertView;
@@ -208,13 +211,25 @@ public class ShowClientsActivity extends AppCompatActivity implements View.OnCli
                                 convertView = View.inflate(ShowClientsActivity.this, R.layout.car_show_item, null);
                             }
 
-                            TextView name = (TextView) convertView.findViewById(R.id.car_id);
-                            TextView lastName = (TextView) convertView.findViewById(R.id.car_model);
-                            TextView id = (TextView) convertView.findViewById(R.id.car_kilimeters);
+                            TextView id = (TextView) convertView.findViewById(R.id.car_id);
+                            TextView model = (TextView) convertView.findViewById(R.id.car_model);
+                            TextView kilometers = (TextView) convertView.findViewById(R.id.car_kilimeters);
 
-                            name.setText(carArrayList.get(position).getId());
-                            lastName.setText(carArrayList.get(position).getCarModel());
-                            id.setText(""+carArrayList.get(position).getKilometers());
+                            id.setText(carArrayList.get(position).getId());
+                            CarModel modelObj = null;
+                            Iterator<CarModel> it = carModelArrayList.iterator();
+                            while (it.hasNext())
+                            {
+                                CarModel carModel = it.next();
+                                boolean bool=carModel.getId().compareTo(carArrayList.get(position).getCarModel())==0;
+                                if(bool)
+                                {
+                                    modelObj = carModel;
+                                    break;
+                                }
+                            }
+                            model.setText(modelObj.getBrand()+" "+ modelObj.getModelName());
+                            kilometers.setText(""+carArrayList.get(position).getKilometers());
 
                             return convertView;
                         }

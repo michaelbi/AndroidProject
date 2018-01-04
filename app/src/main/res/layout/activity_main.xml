@@ -3,7 +3,8 @@
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
-android:layout_height="match_parent">
+android:layout_height="match_parent"
+    style="@style/Layout_basic">
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -14,31 +15,31 @@ android:layout_height="match_parent">
         android:id="@+id/AddClientButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Client" />
+        android:text="@string/main_add_client" />
 
     <Button
         android:id="@+id/AddCarModelButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ADD Car Model" />
+        android:text="@string/main_add_carmodel" />
 
     <Button
         android:id="@+id/AddCarButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Car" />
+        android:text="@string/main_add_car" />
 
     <Button
         android:id="@+id/AddBranchButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Branch" />
+        android:text="@string/main_add_branch" />
 
     <Button
         android:id="@+id/ShowClientsButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show Clients" />
+        android:text="@string/main_show_info" />
 
 </LinearLayout>
 </ScrollView>

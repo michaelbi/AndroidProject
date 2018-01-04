@@ -15,6 +15,7 @@ import android.widget.Toast;
 import il.ac.jct.michaelzalman.androidproject.R;
 import il.ac.jct.michaelzalman.androidproject.model.backend.DBFactory;
 import il.ac.jct.michaelzalman.androidproject.model.backend.TakeAndGoConsts;
+import il.ac.jct.michaelzalman.androidproject.model.backend.Tools;
 
 public class AddClientActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -43,10 +44,17 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
 
         //initialise backgroundProcess Interface
         actions = new backgroundProcess.backgroundProcessActions<Void, Void, Boolean>() {
+            private String error=null;
 
             @Override
             public Boolean doInBackground() {
-                return addClient();
+
+                try {
+                    return addClient();
+                } catch (Exception e) {
+                    error=e.getMessage();
+                    return false;
+                }
             }
 
             @Override
@@ -56,7 +64,7 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
                 if (aVoid)
                     Toast.makeText(AddClientActivity.this, R.string.confirm_client_add, Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(AddClientActivity.this, R.string.error_client_add, Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddClientActivity.this, error, Toast.LENGTH_LONG).show();
             }
         };
 
@@ -106,7 +114,7 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
      */
     @Override
     public void onClick(View v) {
-        if (v == Add) {
+        if (v == Add ) {
             if (emptyBoxes()) {
                 Toast.makeText(this, R.string.error_empty_filleds, Toast.LENGTH_LONG).show();
             }
@@ -119,6 +127,7 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
             else if (!checkId()) {
                 Toast.makeText(this, R.string.error_id, Toast.LENGTH_LONG).show();
             }
+            else if(!Tools.isInternetConnectedToast(this)){}
             else {
                 if (addClientProcess == null || addClientProcess.getStatus() != AsyncTask.Status.RUNNING) {
                     addClientProcess = new backgroundProcess(actions);
@@ -137,7 +146,7 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
      *
      * @return  Boolean represents successful adding of Client
      */
-    private boolean addClient() {
+    private boolean addClient() throws Exception {
 
         // Handle clicks for Add
         ContentValues content = new ContentValues();
@@ -148,12 +157,9 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
         content.put(TakeAndGoConsts.ClientConst.EMAIL, EmailAddress.getText().toString());
         content.put(TakeAndGoConsts.ClientConst.CREDIT_CARD, CreditCard.getText().toString());
 
-        try
-        {
-            DBFactory.getIdbManager().addClient(content);
-        } catch (Exception e) {
-            return false;
-        }
+
+        DBFactory.getIdbManager().addClient(content);
+
         return true;
     }
 

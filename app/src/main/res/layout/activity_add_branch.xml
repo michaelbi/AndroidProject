@@ -5,17 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="il.ac.jct.michaelzalman.androidproject.controller.AddBranchActivity"
-    tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp">
+    style="@style/Layout_basic">
+
     <EditText
         android:id="@+id/Address_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
+        style="@style/EditTextValues"
         android:hint="@string/add_branch_address_hint" />
 
     <EditText
+        style="@style/EditTextValues"
         android:id="@+id/Address_street"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,6 +26,7 @@
         android:hint="@string/add_branch_street" />
 
     <EditText
+        style="@style/EditTextValues"
         android:id="@+id/Address_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +36,7 @@
 
 
     <EditText
+        style="@style/EditTextValues"
         android:id="@+id/ParkingUnits"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
